@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Dojo example</title>
+<style type="text/css">
+@import "/lib/js/tk/dojo/last/dijit/themes/nihilo/nihilo.css";
+</style>
+<script type="text/javascript" src="/lib/js/tk/dojo/last/dojo/dojo.js"
+	djConfig="parseOnLoad:true, isDebug: true"></script>
+<script type="text/javascript"><!--
+  //dojo.require("dojo.data.ItemFileReadStore");
+	dojo.require("dojox.data.JsonRestStore");
+	dojo.require("dijit.Tree");
+	//dojo.require("dojo.*.js");
+
+  dojo.addOnLoad(function(){
+		var mdService = function(query, queryOptions) {
+			return dojo.xhrGet({url:"/app/php/feedNodi/" + query['id'], 
+				handleAs:'json', 
+				content: { }
+			});
+		}		
+    var ajaxStore = new dojox.data.JsonRestStore({ 
+        target:"http://localhost/app/php/feedNodi/",
+		//service: mdService,
+		idAttribute:"node_id",
+		labelAttribute:"node_name",
+	});
+    //var features = ajaxStore.getFeatures();
+    //for(var i in features){
+    //    console.log("Store supports feature: " + i);
+    //}
+
+    var treeModel = new dijit.tree.ForestStoreModel({
+        store: ajaxStore,
+		query: { 'node_id': '1'},
+        rootId: '1',
+        rootLabel: "root",
+        childrenAttrs: ["children"],
+		});
+
+//    TreeBuilder.buildTree();
+    var Tree = new dijit.Tree({
+        model: treeModel
+    }, "treeOne");
+
+    var myRpcController = dojo.widget.createWidget("TreeRPCController",{
+       widgetId:"treeController",
+       RPCUrl:"getChildren"
+     });
+   myRpcController.onTreeClick = function(message){
+     	var node = message.source;
+     	if (node.isExpanded){
+     	  this.expand(node);
+     	} else {
+     	  this.collapse(node);
+     	}
+   	};
+   var treeContainer = document.getElementById("treeOne");
+  treeContainer.appendChild(myRpcController.domNode);
+   myRpcController.listenTree(dojo.widget.manager.getWidgetById("myTreeWidget"));
+
+   });
+  
+  //Tree.startup();
+--></script>
+<body class="nihilo">
+
+<div id="treeOne"></div>
+
+<!--<div dojoType="dijit.tree.TreeStoreModel" jsId="model" store="store">
+        <script type="dojo/method" event="getChildren" args="item, onComplete">
+                return ajaxStore.fetch({query: {node_id_parent: ajaxStore.getIdentity(item)}, onComplete: onComplete});
+        </script>
+        <script type="dojo/method" event="mayHaveChildren" args="item">
+                var id_p = ajaxStore.getValue(item, "node_id_parent");
+				var id_c = ajaxStore.getValue(item, "node_id");
+                return (ip_p = id_c);
+        </script>
+</div>
+-->
+</body>
+</html>

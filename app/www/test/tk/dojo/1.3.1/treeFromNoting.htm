@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Programmatic Tree Test Page</title>
+
+
+<script type="text/javascript">
+	var djConfig = { isDebug: true , parseOnLoad:true};
+</script>
+
+<style type="text/css">
+  @import "/lib/js/tk/dojo/last/dijit/themes/nihilo/nihilo.css";
+</style>
+<script type="text/javascript" src="/lib/js/tk/dojo/last/dojo/dojo.js"></script>
+
+
+<script type="text/javascript">
+/* Initial Nodes */
+var treeDat = {
+	treeNodes: [
+		{ title:"World" },
+		{ title:"Business" },
+		{ title:"Sports" }
+	]
+};
+</script>
+
+<script type="text/javascript">
+var TreeBuilder = {
+	buildTreeNodes:function (dataObjs, treeParentNode){
+		for(var i=0; i<dataObjs.length;i++){
+			var node =  dojo.widget.createWidget("TreeNode",{
+				title:dataObjs[i].title,
+				isFolder: true,
+				widgetId:(((treeParentNode)?treeParentNode.widgetId:"root_")+"_"+i)
+			});
+			treeParentNode.addChild(node);
+			treeParentNode.registerChild(node,i);
+		}
+	},
+	buildTree:function (){
+		var myTreeWidget = dojo.widget.createWidget("Tree",{
+			widgetId:"myTreeWidget"
+		});
+		this.buildTreeNodes(treeDat.treeNodes,myTreeWidget);
+		var treeContainer = document.getElementById("myWidgetContainer");
+		var placeHolder = document.getElementById("treePlaceHolder");
+		treeContainer.replaceChild(myTreeWidget.domNode,placeHolder);
+	}
+}
+dojo.addOnLoad(function(){
+	dojo.require("dojo.lang.*");
+	dojo.require("dojo.widget.Tree");
+	dojo.require("dojo.widget.TreeNode");
+	dojo.require("dojo.widget.TreeRPCController");
+	TreeBuilder.buildTree();
+	var myRpcController = dojo.widget.createWidget("TreeRPCController",{
+			widgetId:"treeController",
+			RPCUrl:"/app/php/feedNodi/1"
+		});
+	myRpcController.onTreeClick = function(message){
+		var node = message.source;
+		if (node.isExpanded){
+			this.expand(node);
+		} else {
+			this.collapse(node);
+		}
+	};
+	var treeContainer = document.getElementById("myWidgetContainer");
+	treeContainer.appendChild(myRpcController.domNode);
+	myRpcController.listenTree(dojo.widget.manager.getWidgetById("myTreeWidget"));
+	});
+</script>
+
+</head>
+<body>
+<h1>RPC Dojo Tree Demo</h1>
+<hr />
+
+<div id="myWidgetContainer"
+	style="width: 17em; border: solid #888 1px; height:300px;">
+	<span id="treePlaceHolder"
+		style="background-color:#F00; color:#FFF;">
+		Loading tree widget...
+	</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="shojs_Clog.css"></link>
+<script type="text/javascript" src="/lib/js/tk/prototype.js"></script>
+<script type="text/javascript" src="shojs_Clog.js"></script>
+<script type="text/javascript">
+	var gLog = null;
+	date = new Date();
+	var lastLifeShot = date.getTime();
+	function life() {
+		date = new Date();
+		oldTime = lastLifeShot;
+		lastLifeShot = date.getTime();
+		if (lastLifeShot - oldTime > 1000) {
+			gLog.m("tick");
+		}
+		gLog.show();
+		setTimeout('life()', 250);
+	}
+	
+	function init() {
+		if (!gLog) {
+			gLog = new shojs_Clog('containerLog');
+		}
+		gLog.set_event('onclick', 'bAddMsgButton', function() {
+		val = document.getElementById('bAddMsgText').value;
+			if (val) {
+				gLog.m(val);
+			}
+			return true;
+		});
+		gLog.set_event('onkeypress', 'bAddMsgText', function(key) {
+			elm = document.getElementById('bAddMsgText');
+				if (elm) {
+					gLog.m("keypress: " + key.which);
+					if (key.which == 13) {
+						gLog.m(elm.value);
+						elm.value= "";
+					}
+				}
+				return true;
+			});
+		
+		gLog.m({
+			type: "error",
+			msg: "Un petit messsage d'erreur", 
+		});
+		gLog.m({ type:"alacon", msg:"Un petit messsage a la con" });		
+		gLog.m("Un petit coucou");
+		gLog.m("Un autre");
+		gLog.m("Un autre 2");
+		gLog.m("Un autre 3" );
+		gLog.m("Un autre 4");
+		gLog.m("Un autre 5");
+		setTimeout(life, 1);
+	}
+</script>
+</head>
+<body onLoad="init();" style="margin: 0px 0px 0px 0px; width: 100%, height: 100%">
+<div id="containerMain">Main</div>
+<div><input id="bAddMsgButton" type="button" value="add"/>
+<input id="bAddMsgText" type="text"></input>
+</div>
+
+<div id="containerLog"></div>
+</body>
+</html>

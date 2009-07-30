@@ -1,0 +1,4 @@
+	RewriteEngine On
+	RewriteBase /app/php/feedNodi/ 
+	RewriteCond %{REQUEST_METHOD}  ^GET$ 
+	RewriteRule ^(\d+)$ /app/php/feedNodi/?node_id=$1

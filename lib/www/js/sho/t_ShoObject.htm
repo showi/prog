@@ -1,0 +1,250 @@
+<html>
+<head>
+
+
+<!--<script type="text/javascript" src="/lib/php/sho/all.js"></script>-->
+<!--<script type="text/javascript" src="/lib/php/sho/t_HtmInclude.php"></script>-->
+
+<script type="text/javascript" src="/lib/js/tk/prototype.js"></script>
+<script type="text/javascript" src="ShoLog.js"></script>
+<script type="text/javascript" src="ShoGlobal.js"></script>
+<script type="text/javascript" src="ShoObject.js"></script>
+<script type="text/javascript" src="ShoNode.js"></script>
+<script type="text/javascript" src="ShoNodesManager.js"></script>
+<script type="text/javascript" src="ShoWidgetTree.js"></script>
+<script type="text/javascript" src="ShoWidgetFactory.js"></script>
+
+<script type="text/javascript">
+	var elmMethods = {
+		sho_get_node_id: function(elm) {
+			return $(elm).getAttribute('sho_node_id');
+		},
+		sho_get_dom_id: function(elm) {
+			return $(elm).getAttribute('sho_node_id');
+		},
+		sho_elm_get_root: function(elm) {
+			var elm = $(elm);
+			var domID = elm.getAttribute('sho_dom_id') + '_rootNode_' + elm.getAttribute('sho_node_id');
+			GSHO.log("domID: " + domID); 
+			return $(domID);
+		},
+		sho_elm_get_label: function(elm) {
+			var elm = $(elm);
+			//elm.sho_elm_get_root().
+			var domID = elm.getAttribute('sho_dom_id') + '_Label_' + elm.getAttribute('sho_node_id');
+			GSHO.log("domID: " + domID); 
+			return $(domID);
+		},
+		sho_elm_get_childs: function(elm) {
+			var elm = $(elm);
+			var domID = elm.getAttribute('sho_dom_id') + '_Childs_' + elm.getAttribute('sho_node_id');
+			GSHO.log("domID: " + domID); 
+			return $(domID);
+		},
+		sho_elm_add_child: function(elm, child) {
+			elm = $(elm);
+			child = $(child);
+			if (child.getAttribute('sho_node_id')) {
+				GSHO.log("Can't add child element without sho_node_id");
+				return 0;
+			}
+			var elmChilds = elm.sho_get_childs();
+			if (!elmChilds) {
+				GSHO.log("Cannot found child element!");
+				return 0;
+			}
+			var elmLi = new Element('li');
+			elmLi.appendChild(child);
+			elmChilds.appendChild(elmLi);
+			return $(child);
+		},
+		shochange: function(elm, child) {
+			var node_id = $(elm).getAttribute('sho_node_id');
+			GSHO.log('Change id: ' + $(elm).getAttribute('sho_node_id'));
+			$(elm).sho_elm_get_label().update(GSHO_NODES[node_id].get('node_name'));
+		}
+	};
+	
+	Element.addMethods(elmMethods);
+	
+	function ShoCreateElement_node(args) {
+		if (!args.dom_id) {
+			GSHO.log({type: 'error', msg: 'ShoCreateElement_node, Cannot create node Element without dom_id'});
+			return null;
+		}
+		if (!args.node_id) {
+			GSHO.log({type: 'error', msg: 'ShoCreateElement_node, Cannot create node Element without node_id'});
+			return null;
+		}
+		var root = new Element('ul', {
+			id: args.dom_id + '_rootNode_' + args.node_id, 
+			class: 'rootNode'
+		});
+		root.setAttribute('sho_dom_id', args.dom_id);
+		root.setAttribute('sho_node_id', args.node_id);
+		var fLi = new Element('li', {
+			id: args.dom_id + '_firstLi_' + args.node_id,
+			class: 'firstLi',
+		});
+		//var labelA = new Element('a');
+		var label = new Element('a', {
+			id: args.dom_id + '_Label_' + args.node_id,
+			class: 'label',
+			href: '#'
+		}).update("Click To Load");
+		label.setAttribute('sho_dom_id', args.dom_id);
+		label.setAttribute('sho_node_id', args.node_id);
+		$(label).observe('click', function(event) {
+			var elm = Event.element(event);
+			var node_id = $(elm).getAttribute('sho_node_id');
+			elm.update('Loading node_id: ' + node_id);
+			if (GSHO_NODES[node_id]) {
+				if (GSHO_NODES[node_id].is_loaded()) {
+					elm.sho_elm_get_label().update(GSHO_NODES[node_id].get('node_name'));
+				} else {
+					GSHO_NODES[node_id].add_observer(elm, elm.id, 'shochange');
+					GSHO_NODES[node_id].load();
+				}
+			} else {
+				GSHO_NODES[node_id] = new ShoNode(node_id);
+				GSHO_NODES[node_id].add_observer(elm, elm.id, 'shochange');
+				GSHO_NODES[node_id].load();
+				
+			}
+		});	
+		var ulChilds = new Element('ul', {
+			id: args.dom_id + '_Childs_' + args.node_id,
+			class: 'childs',
+		});	
+		fLi.appendChild(label);
+		fLi.appendChild(ulChilds);
+		root.appendChild(fLi);
+		return $(root);
+	}	
+	
+var nodesManager;
+function __init() {
+	__helper_init();
+	GSHO.log('On commence à loguer...');
+	var Widgets = new Array();
+	for(i = 0; i < 0; i++) {
+		Widgets[i] = new ShoWidget_Main();
+		Widgets[i].get('elm').style.visibility = 'visible';
+		Widgets[i].setTitle(".: Main widget " + i + ":.");
+		Widgets[i].setContent(
+		  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec," 
+		+ "ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor," 
+		+ "orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae," 
+		+ "consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue." 
+		+ "Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales."
+		);
+		Widgets[i].setStatus(Widgets[i].get('elm').id + ' is ready!');
+	}
+	__callback_queue_event(200);
+	nodesManager = new ShoNodesManager;
+	var tree = new ShoWidgetTree(1);
+	tree.build('treeContainer', "treeContainer", 1);
+
+	var elm = ShoCreateElement_node({ dom_id: 'Tree', node_id: 1});
+	$('ShoID_test').appendChild(elm);	
+	for (i = 2; i < 5; i++) {
+		var newElm = ShoCreateElement_node({ dom_id: 'Tree', node_id: i});
+		elm.sho_elm_get_childs().appendChild(newElm);
+		newElm.sho_elm_get_label().update("node_" + i);
+	}
+	for (i = 5; i < 10; i++) {
+		var newElm = ShoCreateElement_node({ dom_id: 'Tree', node_id: i});
+		$('Tree_rootNode_4').sho_elm_get_childs().appendChild(newElm);
+		newElm.sho_elm_get_label().update("node_" + i);
+	}
+	GSHO.log("node_id: " + $('Tree_rootNode_1').getAttribute('sho_node_id'));
+	GSHO.log("dom_id: " + $('Tree_rootNode_1').getAttribute('sho_dom_id'));
+	
+	GSHO.log($('Tree_rootNode_1').toString());
+	$('Tree_rootNode_2').sho_elm_get_label().update('boyaka!');
+	$('Tree_rootNode_1').sho_elm_get_label().update('buh!');
+	
+	elm = ShoCreateElement_node({ dom_id: 'Tree2', node_id: 1});
+	$('ShoID_test').appendChild(elm);
+	
+
+}
+</script>
+
+<link rel="stylesheet" type="text/css" href="css/ShoWidgetFactory.css"></link>
+
+</head>
+
+<body onload="__init();">
+
+<div id="ShoID_test"></div>
+<div id="treeContainer">
+Loading tree
+</div>
+<div id="ShoID_LOG"></div>
+<div id="widgetMain_" class="widgetBaseClass" onmouseup="winStop('%WIDGET_ID%')">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" >
+	<tbody>
+		<tr>
+			<td class="widgetCorner_upLeft" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: right; vertical-align: up; height: 8px; width: 8px;">
+			</td>
+			<td class="widgetCorner_up" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: center; vertical-align: up; height: 8px;">
+			</td>
+			<td class="widgetCorner_upRight" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: left; vertical-align: up; height: 8px; width: 8px;">
+			</td>
+		</tr>
+		<tr>
+			<td class="widgetCorner_middleLeft" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: right; vertical-align: middle; width: 8px;">
+			</td>
+			<td style="vertical-align: top;">
+			<table width="100%" style="text-align: left;" border="0" cellpadding="0"
+				cellspacing="0">
+				<tbody>
+					<tr>
+						<td style="vertical-align: top;">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" height="16" style="border: 1px; border-style:none none dotted none; background-color: black; color: red ">
+							<tbody>
+								<tr>
+									<td height="16" width="16" style="horizontal-align: left"><img src="img/icon16_16.png"></td>
+									<td style="width: 100%; align: middle;" onmousedown="winMove('%WIDGET_ID%')"><span id="ShoWidgetTitleID_">widgetName</span></td>
+									<td style="align: right">[_][-]<span onclick="winClose('%WIDGET_ID%');">[X]</span></td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="vertical-align: top; background-color: white;"><div><span id="ShoWidgetContentID_" class="widgetContent">content</span></div></td>
+					</tr>
+					<tr>
+						<td style="vertical-align: top; background-color: black; color: white"><span id="ShoWidgetStatusID_" class="widgetStatusBar">content</span></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			<td class="widgetCorner_middleRight" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: left; vertical-align: middle; width: 8px;">
+			</td>
+		</tr>
+		<tr>
+			<td class="widgetCorner_downLeft" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: right; vertical-align: bottom; height: 8px; width: 8px;">
+			</td>
+			<td class="widgetCorner_down" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: center; vertical-align: bottom; height: 8px;">
+			</td>
+			<td class="widgetCorner_downRight" onmousedown="winMove('%WIDGET_ID%')"
+				style="text-align: left; vertical-align: top; height: 8px; width: 8px;">
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+</body>
+</html>
+

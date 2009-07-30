@@ -1,0 +1,141 @@
+@CHARSET "UTF-8";
+
+.shocss_class_log_undefined {
+	color: red;
+}
+
+.shocss_class_log_echo {
+	color: green;
+}
+
+.Tree_Label:hover {
+	cursor: move;
+	color: red;
+	
+}
+
+ul {
+list-style-type:none;
+padding:0px;
+margin:0px;
+}
+li: hover {
+	background-image:url(/lib/js/sho/img/arrow.gif);
+}
+li {
+background-image:url(/lib/js/sho/img/arrow_right.gif);
+background-repeat:no-repeat;
+background-position:0px 5px;
+padding-left:14px;
+margin: 0px 0px 0px 10px;
+padding: 0px 0px 0px 15px;
+}
+.widgetBaseClass {
+		width: 300px;
+		height: 300px;
+		top: 50;
+		left: 800;
+		position: absolute;
+		z-index: 1;
+		align: center;
+		visibility: hidden; 		
+		padding:0px 0px 0px 0px;
+		margin: 0px 0px 0px 0px;
+	}
+	.widgetStatusBar {
+		overflow: hidden;
+	}
+	
+	.widgetContent {
+		overflow: scroll;
+	
+	}
+	.widgetBaseTopClass {
+		margin: 0px 0px 0px 0px;
+		width: 100%;
+		height: 50px;
+	}
+	.widgetBaseMainClass {
+		height: 100%;
+		width: 100%;
+		margin: 2px 2px 2px 2px;
+		background-color: black;
+		color: white;
+	}
+	.widgetBaseCmdClass {
+	   	margin: 0px 0px 0px 0px;
+	   	width: 51px;
+    	height: 48px;
+    	top: 0px;
+    	left: 0px;
+	}
+	
+	.widgetCorner_up {
+		background-image:url(../img/widgetCorner_full.png);
+		background-repeat:repeat-x;
+		background-position:left up;
+		heigth: 8px;
+	}
+	.widgetCorner_upRight {
+		background-image:url(../img/widgetCorner_upRight.png);
+		background-repeat:no-repeat;
+		width: 8px;
+		heigth: 8px;
+	}
+	.widgetCorner_upLeft {
+		background-image:url(../img/widgetCorner_upLeft.png);
+		background-repeat:no-repeat;
+		width: 8px;
+		heigth: 8px;
+	}
+	.widgetCorner_middleLeft {
+		background-image:url(../img/widgetCorner_full.png);
+		background-repeat:repeat-y;
+		width: 8px;
+	}
+	.widgetCorner_middleRight {
+		background-image:url(../img/widgetCorner_full.png);
+		background-repeat:repeat-y;
+		width: 8px;
+	}
+	.widgetCorner_downLeft {
+		background-image:url(../img/widgetCorner_downLeft.png);
+		background-repeat:no-repeat;
+		width: 8px;
+		heigth: 8px;
+	}
+	.widgetCorner_down {
+		background-image:url(../img/widgetCorner_full.png);
+		background-repeat:repeat-x;
+		heigth: 8px;
+	}
+	.widgetCorner_downRight{
+		background-image:url(../img/widgetCorner_downRight.png);
+		background-repeat:no-repeat;
+		width: 8px;
+		heigth: 8px;
+	}
+	img {
+		margin: 0px 0px 0px 0px;
+		align: left;
+	}
+	
+	.ShoNode_Name {
+		color: white;
+		background-color: black;
+	}
+	
+	.ShoNode_Name:hover {
+		color: red;
+		cursor: move;
+		background-color: black;
+	}
+.ShoNode_Label {
+	display: inline;
+}
+.ShoNode_LabelExpand {
+	display: inline;
+}
+.ShoNode_LabelText{
+	display: inline;
+}

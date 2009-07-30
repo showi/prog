@@ -1,0 +1,4 @@
+	RewriteEngine On
+	RewriteBase /app/php/restFeedNodi/ 
+	RewriteCond %{REQUEST_METHOD}  ^GET$ 
+	RewriteRule ^([\w+_]+)\/([^\/]+).*$ /app/php/feedNodi/index.php?node_id=$2&action=$1 
