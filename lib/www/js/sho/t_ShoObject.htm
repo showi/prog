@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<link rel="stylesheet" type="text/css" href="css/ShoWidgetFactory.css"></link>
 
 <!--<script type="text/javascript" src="/lib/php/sho/all.js"></script>-->
 <!--<script type="text/javascript" src="/lib/php/sho/t_HtmInclude.php"></script>-->
@@ -13,120 +13,16 @@
 <script type="text/javascript" src="ShoNodesManager.js"></script>
 <script type="text/javascript" src="ShoWidgetTree.js"></script>
 <script type="text/javascript" src="ShoWidgetFactory.js"></script>
+<script type="text/javascript" src="ShoCreateElement.js"></script>
 
 <script type="text/javascript">
-	var elmMethods = {
-		sho_get_node_id: function(elm) {
-			return $(elm).getAttribute('sho_node_id');
-		},
-		sho_get_dom_id: function(elm) {
-			return $(elm).getAttribute('sho_node_id');
-		},
-		sho_elm_get_root: function(elm) {
-			var elm = $(elm);
-			var domID = elm.getAttribute('sho_dom_id') + '_rootNode_' + elm.getAttribute('sho_node_id');
-			GSHO.log("domID: " + domID); 
-			return $(domID);
-		},
-		sho_elm_get_label: function(elm) {
-			var elm = $(elm);
-			//elm.sho_elm_get_root().
-			var domID = elm.getAttribute('sho_dom_id') + '_Label_' + elm.getAttribute('sho_node_id');
-			GSHO.log("domID: " + domID); 
-			return $(domID);
-		},
-		sho_elm_get_childs: function(elm) {
-			var elm = $(elm);
-			var domID = elm.getAttribute('sho_dom_id') + '_Childs_' + elm.getAttribute('sho_node_id');
-			GSHO.log("domID: " + domID); 
-			return $(domID);
-		},
-		sho_elm_add_child: function(elm, child) {
-			elm = $(elm);
-			child = $(child);
-			if (child.getAttribute('sho_node_id')) {
-				GSHO.log("Can't add child element without sho_node_id");
-				return 0;
-			}
-			var elmChilds = elm.sho_get_childs();
-			if (!elmChilds) {
-				GSHO.log("Cannot found child element!");
-				return 0;
-			}
-			var elmLi = new Element('li');
-			elmLi.appendChild(child);
-			elmChilds.appendChild(elmLi);
-			return $(child);
-		},
-		shochange: function(elm, child) {
-			var node_id = $(elm).getAttribute('sho_node_id');
-			GSHO.log('Change id: ' + $(elm).getAttribute('sho_node_id'));
-			$(elm).sho_elm_get_label().update(GSHO_NODES[node_id].get('node_name'));
-		}
-	};
-	
-	Element.addMethods(elmMethods);
-	
-	function ShoCreateElement_node(args) {
-		if (!args.dom_id) {
-			GSHO.log({type: 'error', msg: 'ShoCreateElement_node, Cannot create node Element without dom_id'});
-			return null;
-		}
-		if (!args.node_id) {
-			GSHO.log({type: 'error', msg: 'ShoCreateElement_node, Cannot create node Element without node_id'});
-			return null;
-		}
-		var root = new Element('ul', {
-			id: args.dom_id + '_rootNode_' + args.node_id, 
-			class: 'rootNode'
-		});
-		root.setAttribute('sho_dom_id', args.dom_id);
-		root.setAttribute('sho_node_id', args.node_id);
-		var fLi = new Element('li', {
-			id: args.dom_id + '_firstLi_' + args.node_id,
-			class: 'firstLi',
-		});
-		//var labelA = new Element('a');
-		var label = new Element('a', {
-			id: args.dom_id + '_Label_' + args.node_id,
-			class: 'label',
-			href: '#'
-		}).update("Click To Load");
-		label.setAttribute('sho_dom_id', args.dom_id);
-		label.setAttribute('sho_node_id', args.node_id);
-		$(label).observe('click', function(event) {
-			var elm = Event.element(event);
-			var node_id = $(elm).getAttribute('sho_node_id');
-			elm.update('Loading node_id: ' + node_id);
-			if (GSHO_NODES[node_id]) {
-				if (GSHO_NODES[node_id].is_loaded()) {
-					elm.sho_elm_get_label().update(GSHO_NODES[node_id].get('node_name'));
-				} else {
-					GSHO_NODES[node_id].add_observer(elm, elm.id, 'shochange');
-					GSHO_NODES[node_id].load();
-				}
-			} else {
-				GSHO_NODES[node_id] = new ShoNode(node_id);
-				GSHO_NODES[node_id].add_observer(elm, elm.id, 'shochange');
-				GSHO_NODES[node_id].load();
-				
-			}
-		});	
-		var ulChilds = new Element('ul', {
-			id: args.dom_id + '_Childs_' + args.node_id,
-			class: 'childs',
-		});	
-		fLi.appendChild(label);
-		fLi.appendChild(ulChilds);
-		root.appendChild(fLi);
-		return $(root);
-	}	
-	
+
 var nodesManager;
 function __init() {
 	__helper_init();
 	GSHO.log('On commence à loguer...');
 	var Widgets = new Array();
+	var i = 0;
 	for(i = 0; i < 0; i++) {
 		Widgets[i] = new ShoWidget_Main();
 		Widgets[i].get('elm').style.visibility = 'visible';
@@ -140,48 +36,34 @@ function __init() {
 		);
 		Widgets[i].setStatus(Widgets[i].get('elm').id + ' is ready!');
 	}
-	__callback_queue_event(200);
+	__callback_queue_event(100);
 	nodesManager = new ShoNodesManager;
-	var tree = new ShoWidgetTree(1);
-	tree.build('treeContainer', "treeContainer", 1);
-
+	//var tree = new ShoWidgetTree(1);
+	//tree.build('treeContainer', "treeContainer", 1);
+	
 	var elm = ShoCreateElement_node({ dom_id: 'Tree', node_id: 1});
 	$('ShoID_test').appendChild(elm);	
-	for (i = 2; i < 5; i++) {
-		var newElm = ShoCreateElement_node({ dom_id: 'Tree', node_id: i});
-		elm.sho_elm_get_childs().appendChild(newElm);
-		newElm.sho_elm_get_label().update("node_" + i);
-	}
-	for (i = 5; i < 10; i++) {
-		var newElm = ShoCreateElement_node({ dom_id: 'Tree', node_id: i});
-		$('Tree_rootNode_4').sho_elm_get_childs().appendChild(newElm);
-		newElm.sho_elm_get_label().update("node_" + i);
-	}
-	GSHO.log("node_id: " + $('Tree_rootNode_1').getAttribute('sho_node_id'));
-	GSHO.log("dom_id: " + $('Tree_rootNode_1').getAttribute('sho_dom_id'));
+	$('Tree_rootNode_1').sho_elm_get_label().update('root');
 	
-	GSHO.log($('Tree_rootNode_1').toString());
-	$('Tree_rootNode_2').sho_elm_get_label().update('boyaka!');
-	$('Tree_rootNode_1').sho_elm_get_label().update('buh!');
-	
-	elm = ShoCreateElement_node({ dom_id: 'Tree2', node_id: 1});
-	$('ShoID_test').appendChild(elm);
 	
 
 }
 </script>
 
-<link rel="stylesheet" type="text/css" href="css/ShoWidgetFactory.css"></link>
+
 
 </head>
 
 <body onload="__init();">
+<div id="Main">
+<table style="width: 100%; height: 100%;">
+<tr>
+<td style="vertical-align: top; width: 70%"><div id="ShoID_test"></div></td>
+<td colspan=2 style="align: right; vertical-align: top"><div id="ShoID_LOG"></div></td>
+</tr>
+</table>
 
-<div id="ShoID_test"></div>
-<div id="treeContainer">
-Loading tree
 </div>
-<div id="ShoID_LOG"></div>
 <div id="widgetMain_" class="widgetBaseClass" onmouseup="winStop('%WIDGET_ID%')">
 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
 	<tbody>
