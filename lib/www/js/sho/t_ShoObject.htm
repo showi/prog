@@ -61,15 +61,21 @@ function __init() {
 		);
 		Widgets[i].setStatus(Widgets[i].get('elm').id + ' is ready!');
 	}
-	__callback_queue_event(100);
+	__callback_queue_event(250);
 	nodesManager = new ShoNodesManager;
 	
-	var elm = ShoCreateElement_node({ dom_id: 'ShoID_TreeMain', node_id: 1});
+	var elm = undefined;
+	elm = gsho_elementCreate('multree', {dom_id: 'peopleByLetter', node_id: 17});
+	$('Main').appendChild(elm); 
+		
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMain', node_id: 3});
 	$('ShoID_TreeMain').appendChild(elm);	
 	elm.sho_elm_get_label().update("Main tree");
-	var elm = ShoCreateElement_node({ dom_id: 'ShoID_TreeMusic', node_id: 3});
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic', node_id: 17});
 	$('ShoID_TreeMusic').appendChild(elm);	
-	elm.sho_elm_get_label().update("Music tree");
+	elm.sho_elm_get_label().update("Peoples tree");
+
 
 }
 </script>
@@ -79,9 +85,9 @@ function __init() {
 </head>
 
 <body onload="__init();">
-<div id="popup" style="position: absolute;top:0px; left:0px; z-index: 2; visibility: visible; width: 20em;  background-color: black; border-style: solid; color: white"></div>
-<div><a href="#" onmouseover="ShoAction_show_popup('popup'	, this);" onmouseout="ShoAction_hide_popup('popup');">Popup A</a></div>
-<div><a href="#" onmouseover="ShoAction_show_popup('popup', this);" onmouseout="ShoAction_hide_popup('popup');">Popup B</a></div>
+<!--<div id="popup" style="position: absolute;top:0px; left:0px; z-index: 2; visibility: visible; width: 20em;  background-color: black; border-style: solid; color: white"></div>-->
+<!--<div><a href="#" onmouseover="ShoAction_show_popup('popup'	, this);" onmouseout="ShoAction_hide_popup('popup');">Popup A</a></div>-->
+<!--<div><a href="#" onmouseover="ShoAction_show_popup('popup', this);" onmouseout="ShoAction_hide_popup('popup');">Popup B</a></div>-->
 <div id="Main">
 <table style="width: 100%; height: 100%;">
 <tr>

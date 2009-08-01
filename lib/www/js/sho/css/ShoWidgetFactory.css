@@ -177,8 +177,7 @@ padding: 0px 0px 0px 15px;
 
 }
 .Arrow {
-	display: inline;
-	padding: 0px 0px 0px 5px
+
 }
 
 a.Arrow_Container {
@@ -210,7 +209,9 @@ a.Arrow_Container:active {
 	display: inline;
 			background-image:url(../img/node_control_height.png);
 	background-repeat:repeat-x;
-		heigth: 16px;
+		
+		border-style: none;
+		border: 0px;
 }
 .nodeEdit {
 	margin: 0px 0px 0px Opx;
@@ -218,8 +219,53 @@ a.Arrow_Container:active {
 	width: 16px;
 	heigth: 16px;
 }
+
+.nodeFolder_close {
+	display: inline;
+	background-image:url(../img/arrow_right.png);
+	background-repeat: no-repeat;
+	heigth: 16px;
+	width: 16px;
+
+}
+.nodeFolder_open {
+	display: inline;
+	background-image:url(../img/arrow_down.png);
+	background-repeat: no-repeat;
+	heigth: 16px;
+	width: 16px;
+}
+
+.nodeStatusLed_unknow {
+	display: inline;
+	background-image:url(../img/node_status_led_red.png);
+	background-repeat: no-repeat;
+	heigth: 16px;
+	width: 16px;
+		border:0px;
+}
+
+.nodeStatusLed_loaded {
+	display: inline;
+	background-image:url(../img/node_status_led_green.png);
+	background-repeat: no-repeat;
+	heigth: 16px;
+	width: 16px;
+		border:0px;
+}
+.nodeStatusLed_loading {
+	display: inline;
+	background-image:url(../img/node_status_led_green_blink.gif);
+	background-repeat: no-repeat;
+	heigth: 16px;
+	width: 16px;
+		border:0px;
+}
 .firstLi {
 
+}
+.Multree {
+	color: white;
 }
 .ShoNode_LabelExpand {
 	display: inline;
