@@ -38,12 +38,13 @@ function __init() {
 	}
 	__callback_queue_event(100);
 	nodesManager = new ShoNodesManager;
-	//var tree = new ShoWidgetTree(1);
-	//tree.build('treeContainer', "treeContainer", 1);
 	
-	var elm = ShoCreateElement_node({ dom_id: 'Tree', node_id: 1});
-	$('ShoID_test').appendChild(elm);	
-	$('Tree_rootNode_1').sho_elm_get_label().update('root');
+	var elm = ShoCreateElement_node({ dom_id: 'ShoID_TreeMain', node_id: 1});
+	$('ShoID_TreeMain').appendChild(elm);	
+	elm.sho_elm_get_label().update("Main tree");
+	var elm = ShoCreateElement_node({ dom_id: 'ShoID_TreeMusic', node_id: 3});
+	$('ShoID_TreeMusic').appendChild(elm);	
+	elm.sho_elm_get_label().update("Music tree");
 	
 	
 
@@ -58,8 +59,14 @@ function __init() {
 <div id="Main">
 <table style="width: 100%; height: 100%;">
 <tr>
-<td style="vertical-align: top; width: 70%"><div id="ShoID_test"></div></td>
-<td colspan=2 style="align: right; vertical-align: top"><div id="ShoID_LOG"></div></td>
+<td style="vertical-align: top; width: 60%">
+<div id="ShoID_TreeMain"></div>
+<div id="ShoID_TreeMusic"></div>
+</td>
+<td colspan=2 style="align: right; vertical-align: top">
+<div id="ShoID_LOG"></div>
+
+</td>
 </tr>
 </table>
 
