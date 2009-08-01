@@ -18,6 +18,31 @@
 <script type="text/javascript">
 
 var nodesManager;
+
+function ShoAction_show_popup(domID, src) {
+		var popElm = $(domID);
+		var srcElm = $(src);
+		var srcOffset = srcElm.cumulativeOffset(srcElm); 
+		popElm.update(src.innerHTML);
+		var dimPop = popElm.getDimensions();
+		var dimSrc = srcElm.getDimensions();
+		var myDim = new Object();
+		myDim.top = srcOffset.top;
+		myDim.left = srcOffset.left + dimSrc.width;
+		GSHO.log("Dim.");
+		popElm.setStyle({
+			'top': myDim.top,
+			'left': myDim.left,
+			'z-index': 1,
+		});
+		popElm.show();
+}
+function ShoAction_hide_popup(domID, src) {
+		$(domID).hide();
+		$(domID).setStyle({
+			'z-index': -1,
+		});
+}
 function __init() {
 	__helper_init();
 	GSHO.log('On commence à loguer...');
@@ -45,8 +70,6 @@ function __init() {
 	var elm = ShoCreateElement_node({ dom_id: 'ShoID_TreeMusic', node_id: 3});
 	$('ShoID_TreeMusic').appendChild(elm);	
 	elm.sho_elm_get_label().update("Music tree");
-	
-	
 
 }
 </script>
@@ -56,6 +79,9 @@ function __init() {
 </head>
 
 <body onload="__init();">
+<div id="popup" style="position: absolute;top:0px; left:0px; z-index: 2; visibility: visible; width: 20em;  background-color: black; border-style: solid; color: white"></div>
+<div><a href="#" onmouseover="ShoAction_show_popup('popup'	, this);" onmouseout="ShoAction_hide_popup('popup');">Popup A</a></div>
+<div><a href="#" onmouseover="ShoAction_show_popup('popup', this);" onmouseout="ShoAction_hide_popup('popup');">Popup B</a></div>
 <div id="Main">
 <table style="width: 100%; height: 100%;">
 <tr>

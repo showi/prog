@@ -2,6 +2,7 @@
 body {
  margin: 0px 0px 0px 0px;
  padding: 0px 0px 0px 0px;
+ background-color: black;
 }
 .Main {
 	float: left;
@@ -62,6 +63,7 @@ margin:0px;
 }
 
 li: hover {
+	cursor-style: move;
 }
 li {
 background-repeat:no-repeat;
@@ -170,16 +172,53 @@ padding: 0px 0px 0px 15px;
 		cursor: move;
 		background-color: black;
 	}
+.rootNode {
+	background-color: black;
 
+}
 .Arrow {
 	display: inline;
 	padding: 0px 0px 0px 5px
 }
 
+a.Arrow_Container {
+	color: black;		
+}
+a.Arrow_Container:hover {
+	color: white;	
+	
+}
+a.Arrow_Container:active {
+	color: #900b09;	
+	
+}
 .Label {
 	display: inline;
+			background-image:url(../img/node_control_height.png);
+	background-repeat:repeat-x;
+	font-size: small;
+	color: black;
+	text-transform: capitalize;
+	margin: 1px 4px 0px 0px;
+	padding: 1px 1px 0px 0px;
+	text-align: center;
 }
 .childs {
+
+}
+.nodeControls {
+	display: inline;
+			background-image:url(../img/node_control_height.png);
+	background-repeat:repeat-x;
+		heigth: 16px;
+}
+.nodeEdit {
+	margin: 0px 0px 0px Opx;
+	padding: 1px 1px 1px 1px;
+	width: 16px;
+	heigth: 16px;
+}
+.firstLi {
 
 }
 .ShoNode_LabelExpand {
