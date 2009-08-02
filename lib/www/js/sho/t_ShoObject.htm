@@ -43,6 +43,16 @@ function ShoAction_hide_popup(domID, src) {
 			'z-index': -1,
 		});
 }
+
+function popWin() {
+	var winDoc = window.open("#", "boom", "width=200, height=100, toolbar=no, location=no, menubar=no");
+	if (!is_defined(winDoc)) {
+		return false;
+	}	
+	winDoc.document.write("hello");
+	return false;
+}
+
 function __init() {
 	//console.trace();
 	__helper_init();
@@ -66,18 +76,38 @@ function __init() {
 	nodesManager = new ShoNodesManager;
 	
 	var elm = undefined;
-	elm = gsho_elementCreate('multree', {dom_id: 'peopleByLetter', node_id: 17});
-	$('Main').appendChild(elm); 
 		
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMain', node_id: 3});
-	$('ShoID_TreeMain').appendChild(elm);	
-	elm.sho_elm_get_label().update("Main tree");
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic1', node_id: 3});
+	$('ShoID_TreeMusic1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreeMusic1");
 	
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic', node_id: 17});
-	$('ShoID_TreeMusic').appendChild(elm);	
-	elm.sho_elm_get_label().update("Peoples tree");
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic2', node_id: 3});
+	$('ShoID_TreeMusic2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreeMusic2");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest1', node_id:74});
+	$('ShoID_DeepTest1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_DeepTest1");
+	
+//	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic3', node_id: 3});
+//	$('ShoID_TreeMusic3').appendChild(elm);	
+//	elm.sho_elm_get_label().update("ShoID_TreeMusic3");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople1', node_id: 17});
+	$('ShoID_TreePeople1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreePeople1");
 
-
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople2', node_id: 17});
+	$('ShoID_TreePeople2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreePeople2");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest2', node_id:74});
+	$('ShoID_DeepTest2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_DeepTest2");
+	
+//	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople3', node_id: 17});
+//	$('ShoID_TreePeople3').appendChild(elm);	
+//	elm.sho_elm_get_label().update("ShoID_TreePeople3");
 }
 </script>
 
@@ -89,21 +119,150 @@ function __init() {
 <!--<div id="popup" style="position: absolute;top:0px; left:0px; z-index: 2; visibility: visible; width: 20em;  background-color: black; border-style: solid; color: white"></div>-->
 <!--<div><a href="#" onmouseover="ShoAction_show_popup('popup'	, this);" onmouseout="ShoAction_hide_popup('popup');">Popup A</a></div>-->
 <!--<div><a href="#" onmouseover="ShoAction_show_popup('popup', this);" onmouseout="ShoAction_hide_popup('popup');">Popup B</a></div>-->
+
+<style type="text/css">
+	.baseLayer {
+	 	position: absolute;
+	 	width:200; 
+	 	height: 200; 
+	 	top: 20; 
+	 	left: 400; 
+	 	background-color: red; 
+	 	margin: 0px 0px 0px 0px; 
+	 	padding: 0px 0px 0px 0px;
+	 	border:0px solid black;
+	 	border-width: 0px;
+
+	 }
+	 .baseLayer_table {
+	 	width: 100%;
+	 	height: 100%;
+	 	margin: 0px 0px 0px 0px; 
+	 	padding: 0px 0px 0px 0px
+		background-color: white;
+	    border-width:1px;
+  		border-style:thin;
+  		border-color:#ff9900;
+  		border-collapse:collapse;
+		
+	 }
+	 .baseLayer_table.collapse {
+	    border-width:1px;
+  		border-style:solid;
+  		border-color:#ff9900;
+  		border-collapse:collapse;
+	 }
+	 td {
+		 border:0px solid black;
+		 margin: 0px 0px 0px 0px;
+		 padding: 0px 0px 0px 0px;
+	 }
+	 tr {
+		 border:0px solid black;
+		 margin: 0px 0px 0px 0px;
+		 padding: 0px 0px 0px 0px;
+	 }
+	 .baseLayer_table_upLeft {
+	 	width: 1px;
+	 	height: 1px;
+	 	background-color: blue;
+	 	border:0px solid black;
+	 }
+	 .baseLayer_table_upMiddle {
+	 	
+	 	height: 1px;
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_upRight {
+	 	width: 1px;
+	 	height: 1px;
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_middleLeft {
+	 	width: 1px;
+	 	
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_middleMiddle {
+
+	 	background-color: white;
+	 }
+	 .baseLayer_table_middleRight {
+	 	width: 1px;
+
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_bottomLeft {
+	 	width: 1px;
+	 	height: 1px;
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_bottomMiddle {
+
+	 	height: 1px;
+	 	background-color: blue;
+	 }
+	 .baseLayer_table_bottomRight {
+	 	width: 1px;
+	 	height: 1px;
+	 	background-color: blue;
+	 }
+
+</style>
+
+<div style="visibility: hidden;" id="baseLayer" class="baseLayer">
+	<table class="baseLayer_table">
+	<caption>
+		<div class="widgetCaption">
+			<div class="widgetCaptionIcon">-</div>
+			<div class="widgetCaptionTitle">Widget</div>
+			<div class="widgetCaptionTools">-_X</div>
+		</div>
+	</caption>
+		<tr>
+			<td class="baseLayer_table_upLeft"><!-- up left --></td>
+			<td class="baseLayer_table_upMiddle"><!-- up middle --></td>
+			<td class="baseLayer_table_upRight"><!-- up right --></td>
+		</tr>
+		<tr>
+			<td class="baseLayer_table_middleLeft"><!-- middle left --></td>
+			<td class="baseLayer_table_middleMiddle"><!-- middle middle --></td>
+			<td class="baseLayer_table_middleRight"><!-- middle right --></td>
+		</tr>
+		<tr>
+			<td class="baseLayer_table_bottomLeft"><!-- bottom left --></td>
+			<td class="baseLayer_table_bottomMiddle"><!-- bottom middle --></td>
+			<td class="baseLayer_table_bottomRight"><!-- bottom right --></td>
+		</tr>
+	</table>
+</div>
+
+
 <div id="Main">
 <table style="width: 100%; height: 100%;">
-<tr>
-<td style="vertical-align: top; width: 60%">
-<div id="ShoID_TreeMain"></div>
-<div id="ShoID_TreeMusic"></div>
-</td>
-<td colspan=2 style="align: right; vertical-align: top">
-<div id="ShoID_LOG"></div>
-
-</td>
+<!--<tr>
+	<td colspan="2">
+	<a  href="#" onclick="popWin(); return false;">google</a>
+	</td>
 </tr>
+-->
+	<tr style="vertical-align: top">
+		<td >
+			<div id="ShoID_TreeMusic1"></div>
+			<div id="ShoID_TreePeople1"></div>
+			<div id="ShoID_DeepTest1"></div>
+		</td>
+		<td>
+			<div id="ShoID_TreeMusic2"></div>
+			<div id="ShoID_TreePeople2"></div>
+			<div id="ShoID_DeepTest2"></div>			
+		</td>
+	</tr>
 </table>
-
 </div>
+
+
+<!--
 <div id="widgetMain_" class="widgetBaseClass" onmouseup="winStop('%WIDGET_ID%')">
 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
 	<tbody>
@@ -166,7 +325,7 @@ function __init() {
 	</tbody>
 </table>
 </div>
-
+-->
 </body>
 </html>
 
