@@ -60,17 +60,19 @@ function __init() {
 //	elm.sho_elm_get_label().update("ShoID_TreePeople3");
 
 
-	ShoElement_createBubble({dom_id: 'DomShoID_testBubble', bubble_id: 'DomShoID_Bubble', txt: 'Hello!'});
+	ShoElement_createBubble({dom_id: 'DomShoID_testBubble1', bubble_id: 'DomShoID_Bubble', txt: 'bubble one'});
+	ShoElement_createBubble({dom_id: 'DomShoID_testBubble2', bubble_id: 'DomShoID_Bubble', txt: 'bubble two'});
+	//elm = $('test');
+	//elm.style.visibility = 'visible';
+	//ShoFunc_ElmMoveTo(elm, 250, 250, undefined);
+
 }
 </script>
-
 
 
 </head>
 
 <body onload="__init();">
-<div id="DomShoID_Bubble" class="DomShoClass_bubble"></div>
-<div id="DomShoID_testBubble" class="">bubble</div>
 
 <style type="text/css">
 	.DomShoClass_bubble {
@@ -81,8 +83,7 @@ function __init() {
 		font-family: Verdana, Arial;
 		font-size: 0.7em;
 		background-color: Yellow;
-		left: 40px;
-		top: 0px
+
 	}
 	
 	.baseLayer {
@@ -171,10 +172,69 @@ function __init() {
 	 	height: 1px;
 	 	background-color: blue;
 	 }
-
+	.bubbleZone {
+		background-color: black;
+		whidth: 100%;
+		
+	}
+	body {
+	 	margin: 0px 0px 0px 0px; 
+	 	padding: 0px 0px 0px 0px;
+	
+	}
+	#Main {
+	 	width: 100%;
+	 	height: 100%;
+	 	margin: 0px 0px 0px 0px; 
+	 	padding: 0px 0px 0px 0px
+		background-color: white;
+	    border-width:1px;
+  		border-style:thin;
+  		border-color:#ff9900;
+  		border-collapse:collapse;
+	} 
+	table {
+		width: 100%;
+	    border-width:1px;
+  		border-style:thin;
+  		border-color:#ff9900;
+  		border-collapse:collapse;
+  	}
 </style>
+<div id="Main">
+<table>
+<!--<tr>
+	<td colspan="2">
+	<a  href="#" onclick="popWin(); return false;">google</a>
+	</td>
+</tr>
+-->
+	<tr>
+		<td colspan="2">
+		<div id="DomShoID_testBubble1" class="bubbleZone">&nbsp;</div>
+		</td>
+	</tr>
+	<tr style="vertical-align: top">
+		<td >
+			<div id="ShoID_TreeMusic1"></div>
+			<div id="ShoID_TreePeople1"></div>
+			<div id="ShoID_DeepTest1"></div>
+		</td>
+		<td>
+			<div id="ShoID_TreeMusic2"></div>
+			<div id="ShoID_TreePeople2"></div>
+			<div id="ShoID_DeepTest2"></div>			
+		</td>
+	</tr>
+		<tr>
+		<td colspan="2">
+		<div id="DomShoID_testBubble2" class="bubbleZone">&nbsp;</div>
+		</td>
+	</tr>
+</table>
+</div>
 
-
+<div id="DomShoID_Bubble" class="DomShoClass_bubble"></div>
 
 
 <!--
@@ -210,28 +270,7 @@ function __init() {
 </div>
 
 
-<div id="Main">
-<table style="width: 100%; height: 100%;">
-<!--<tr>
-	<td colspan="2">
-	<a  href="#" onclick="popWin(); return false;">google</a>
-	</td>
-</tr>
--->
-	<tr style="vertical-align: top">
-		<td >
-			<div id="ShoID_TreeMusic1"></div>
-			<div id="ShoID_TreePeople1"></div>
-			<div id="ShoID_DeepTest1"></div>
-		</td>
-		<td>
-			<div id="ShoID_TreeMusic2"></div>
-			<div id="ShoID_TreePeople2"></div>
-			<div id="ShoID_DeepTest2"></div>			
-		</td>
-	</tr>
-</table>
-</div>
+
 
 
 <!--
