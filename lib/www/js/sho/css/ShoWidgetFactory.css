@@ -2,8 +2,10 @@
 body {
  margin: 0px 0px 0px 0px;
  padding: 0px 0px 0px 0px;
- background-color: black;
+ background-color: white;
+ color: black;
 }
+
 .Main {
 	float: left;
 	position: absolute;
@@ -14,40 +16,31 @@ body {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 }
+
 .ShoID_test {
 	position: relative;
 	width: 70%;
 	float: right;
 }
 
-.ShoID_LOG {
-	position: absolute;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-	top: 0px;
-	left: 70%;
-	width: 30%;	
-	height: 100%;
-	background-color: grey;
-	font-size: small;
-	
-}
-.shocss_class_log {
-	display: block;
-	background-color: grey;
-	padding: 0px 0px 0px 5px;
-	border-style: solid;
-	border-width: 0px 1px 0px 0px;
-	border-color: black;
+.widgetCaption {
+	display: inline;
+	text-align: left;
 }
 
-.shocss_class_log_echo {
-	color: white;
-
+.widgetCaptionIcon {
+	display: inherit;
+	text-align: center;
 }
-.shocss_class_log_error {
-	color: red;
+
+.widgetCaptionTitle {
+	display: inherit;
+
+	text-align: right;
+}
+
+.widgetCaptionTools {
+	display: inherit;
 }
 
 .Tree_Label:hover {

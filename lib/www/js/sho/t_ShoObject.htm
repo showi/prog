@@ -7,6 +7,7 @@
 
 <script type="text/javascript" src="../tk/prototype.js"></script>
 <!--<script type="text/javascript" src="ShoLog.js"></script>-->
+<script type="text/javascript" src="ShoConf.js"></script>
 <script type="text/javascript" src="ShoGlobal.js"></script>
 <script type="text/javascript" src="ShoObject.js"></script>
 <script type="text/javascript" src="ShoNode.js"></script>
@@ -17,7 +18,7 @@
 
 <script type="text/javascript">
 
-var nodesManager;
+var gshoNodesManager = new ShoNodesManager();
 
 function ShoAction_show_popup(domID, src) {
 		var popElm = $(domID);
@@ -33,14 +34,14 @@ function ShoAction_show_popup(domID, src) {
 		popElm.setStyle({
 			'top': myDim.top,
 			'left': myDim.left,
-			'z-index': 1,
+			'z-index': 1
 		});
 		popElm.show();
 }
 function ShoAction_hide_popup(domID, src) {
 		$(domID).hide();
 		$(domID).setStyle({
-			'z-index': -1,
+			'z-index': -1
 		});
 }
 
@@ -72,8 +73,8 @@ function __init() {
 		);
 		Widgets[i].setStatus(Widgets[i].get('elm').id + ' is ready!');
 	}
-	__callback_queue_event(250);
-	nodesManager = new ShoNodesManager;
+	__callback_queue_event(50);
+	//GSHO_NodesManager = new ShoNodesManager();
 	
 	var elm = undefined;
 		
@@ -108,6 +109,9 @@ function __init() {
 //	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople3', node_id: 17});
 //	$('ShoID_TreePeople3').appendChild(elm);	
 //	elm.sho_elm_get_label().update("ShoID_TreePeople3");
+
+
+	ShoElement_createBubble({dom_id: 'DomShoID_testBubble', bubble_id: 'DomShoID_Bubble', txt: 'Hello!'});
 }
 </script>
 
@@ -116,11 +120,22 @@ function __init() {
 </head>
 
 <body onload="__init();">
-<!--<div id="popup" style="position: absolute;top:0px; left:0px; z-index: 2; visibility: visible; width: 20em;  background-color: black; border-style: solid; color: white"></div>-->
-<!--<div><a href="#" onmouseover="ShoAction_show_popup('popup'	, this);" onmouseout="ShoAction_hide_popup('popup');">Popup A</a></div>-->
-<!--<div><a href="#" onmouseover="ShoAction_show_popup('popup', this);" onmouseout="ShoAction_hide_popup('popup');">Popup B</a></div>-->
+<div id="DomShoID_Bubble" class="DomShoClass_bubble"></div>
+<div id="DomShoID_testBubble" class="">bubble</div>
 
 <style type="text/css">
+	.DomShoClass_bubble {
+		position: absolute;	
+		visibility: hidden;
+		border: 1px solid #CCCCCC;
+		padding: 10px;
+		font-family: Verdana, Arial;
+		font-size: 0.7em;
+		background-color: Yellow;
+		left: 40px;
+		top: 0px
+	}
+	
 	.baseLayer {
 	 	position: absolute;
 	 	width:200; 
@@ -209,6 +224,7 @@ function __init() {
 	 }
 
 </style>
+
 
 <div style="visibility: hidden;" id="baseLayer" class="baseLayer">
 	<table class="baseLayer_table">
