@@ -17,63 +17,6 @@
 <!--<script type="text/javascript" src="ShoWidgetFactory.js"></script>-->
 <script type="text/javascript" src="ShoCreateElement.js"></script>
 
-<script type="text/javascript">
-
-var gshoNodesManager = new ShoNodesManager();
-
-function __init() {
-	__helper_init();
-	__callback_queue_event(50);
-	
-	
-	var elm = undefined;
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic1', node_id: 3});
-	$('ShoID_TreeMusic1').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_TreeMusic1");
-	
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic2', node_id: 3});
-	$('ShoID_TreeMusic2').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_TreeMusic2");
-	
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest1', node_id:74});
-	$('ShoID_DeepTest1').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_DeepTest1 !!!ATTENTION C'est LONG!!!");
-	
-//	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic3', node_id: 3});
-//	$('ShoID_TreeMusic3').appendChild(elm);	
-//	elm.sho_elm_get_label().update("ShoID_TreeMusic3");
-	
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople1', node_id: 17});
-	$('ShoID_TreePeople1').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_TreePeople1");
-
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople2', node_id: 17});
-	$('ShoID_TreePeople2').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_TreePeople2");
-	
-	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest2', node_id:74});
-	$('ShoID_DeepTest2').appendChild(elm);	
-	elm.sho_elm_get_label().update("ShoID_DeepTest2 !!!ATTENTION C'est LONG!!!");
-	
-//	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople3', node_id: 17});
-//	$('ShoID_TreePeople3').appendChild(elm);	
-//	elm.sho_elm_get_label().update("ShoID_TreePeople3");
-
-
-	ShoElement_createBubble({dom_id: 'DomShoID_testBubble1', bubble_id: 'DomShoID_Bubble', txt: 'bubble one'});
-	ShoElement_createBubble({dom_id: 'DomShoID_testBubble2', bubble_id: 'DomShoID_Bubble', txt: 'bubble two'});
-	//elm = $('test');
-	//elm.style.visibility = 'visible';
-	//ShoFunc_ElmMoveTo(elm, 250, 250, undefined);
-
-}
-</script>
-
-
-</head>
-
-<body onload="__init();">
-
 <style type="text/css">
 	.DomShoClass_bubble {
 		position: absolute;	
@@ -83,95 +26,7 @@ function __init() {
 		font-family: Verdana, Arial;
 		font-size: 0.7em;
 		background-color: Yellow;
-
 	}
-	
-	.baseLayer {
-	 	position: absolute;
-	 	width:200; 
-	 	height: 200; 
-	 	top: 20; 
-	 	left: 400; 
-	 	background-color: red; 
-	 	margin: 0px 0px 0px 0px; 
-	 	padding: 0px 0px 0px 0px;
-	 	border:0px solid black;
-	 	border-width: 0px;
-
-	 }
-	 .baseLayer_table {
-	 	width: 100%;
-	 	height: 100%;
-	 	margin: 0px 0px 0px 0px; 
-	 	padding: 0px 0px 0px 0px
-		background-color: white;
-	    border-width:1px;
-  		border-style:thin;
-  		border-color:#ff9900;
-  		border-collapse:collapse;
-		
-	 }
-	 .baseLayer_table.collapse {
-	    border-width:1px;
-  		border-style:solid;
-  		border-color:#ff9900;
-  		border-collapse:collapse;
-	 }
-	 td {
-		 border:0px solid black;
-		 margin: 0px 0px 0px 0px;
-		 padding: 0px 0px 0px 0px;
-	 }
-	 tr {
-		 border:0px solid black;
-		 margin: 0px 0px 0px 0px;
-		 padding: 0px 0px 0px 0px;
-	 }
-	 .baseLayer_table_upLeft {
-	 	width: 1px;
-	 	height: 1px;
-	 	background-color: blue;
-	 	border:0px solid black;
-	 }
-	 .baseLayer_table_upMiddle {
-	 	
-	 	height: 1px;
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_upRight {
-	 	width: 1px;
-	 	height: 1px;
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_middleLeft {
-	 	width: 1px;
-	 	
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_middleMiddle {
-
-	 	background-color: white;
-	 }
-	 .baseLayer_table_middleRight {
-	 	width: 1px;
-
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_bottomLeft {
-	 	width: 1px;
-	 	height: 1px;
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_bottomMiddle {
-
-	 	height: 1px;
-	 	background-color: blue;
-	 }
-	 .baseLayer_table_bottomRight {
-	 	width: 1px;
-	 	height: 1px;
-	 	background-color: blue;
-	 }
 	.bubbleZone {
 		background-color: black;
 		whidth: 100%;
@@ -201,6 +56,130 @@ function __init() {
   		border-collapse:collapse;
   	}
 </style>
+
+<script type="text/javascript"><!--
+
+function popup(p) {
+	var w = window.open("blank.htm", p.title, p.options);	
+	return w;
+}
+
+function ShoFunc_behaviour__init_category_entry(node, p_elm) {
+	var elm = $(p_elm);
+	if (!elm) {
+		GSHO.log({f: 'ShoFunc_behaviour__init_category_entry', t:'e', m:'No element'});
+		return false;
+	}
+	var rootElm = elm.sho_elm_get_root();
+	elm.sho_elm_get_label().style.color = 'blue';
+	if (rootElm) {
+		rootElm.sho_elm_get_label().style.backgroundColor = 'white';
+	}
+	return true;
+}
+
+function ShoFunc_behaviour__init_people_entry(node, p_elm) {
+
+}
+
+function ShoFunc_behaviour_view_label_people_entry(p_elm) {
+	var elm = $(p_elm);
+	var rootElm = elm.sho_elm_get_root();
+	var node_id = rootElm.getAttribute('sho_node_id');
+	var dom_id = rootElm.getAttribute('sho_dom_id');
+	var node = gshoNodesManager.get_node_by_id(node_id);
+	var a = new Element('a', { href: '#'});
+	a.observe('click', function(event) {
+		Event.stop(event);
+		var w = popup({title: 'People::Entry',
+			options: 'width=300, height=200'
+		});
+		w.document.write('<html><head><title>'+node.node_name+'</title></head><body></body></html>');
+		var b = w.document.getElementsByTagName('body');
+		var elm = new Element('p', { });
+		elm.update('node' + toHTM(node.to_string()));
+		b[0].appendChild(elm);
+		w.focus();
+		return false;
+	}).update(node.node_name);
+	return a;
+}
+/**********
+ * __init *
+ **********/
+function __init() {
+	/* Set global variable and start event loop processing (cheap one :) */
+	__sholib_init(); 
+
+	/* BEHAVIOR category:entry __init */
+	gshoNodesManager.add_behavior({
+		node_type: 'category', node_subtype: 'entry',
+		key: '__init', value: ShoFunc_behaviour__init_category_entry	
+	});
+	/* BEHAVIOR category:entry autoload */	
+	gshoNodesManager.add_behavior({
+		node_type: 'people', node_subtype: 'entry',
+		key: 'autoload', value: true	
+	});
+	/* BEHAVIOR people:entry __init */
+	gshoNodesManager.add_behavior({
+		node_type: 'people', node_subtype: 'entry',
+		key: '__init', value: ShoFunc_behaviour__init_people_entry	
+	});
+	/* BEHAVIOR people:entry __init */
+	gshoNodesManager.add_behavior({
+		node_type: 'people', node_subtype: 'entry',
+		key: 'view_label', value: ShoFunc_behaviour_view_label_people_entry	
+	});
+	/* BEHAVIOR people:entry autoload */
+	gshoNodesManager.add_behavior({
+		node_type: 'deep', node_subtype: 'test',
+		key: 'autoload', value: true	
+	});
+
+	/*******************
+	* Create our trees *
+	********************/
+	var elm = undefined;
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic1', node_id: 3});
+	$('ShoID_TreeMusic1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreeMusic1");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreeMusic2', node_id: 3});
+	$('ShoID_TreeMusic2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreeMusic2");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest1', node_id:74});
+	$('ShoID_DeepTest1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_DeepTest1 !!!ATTENTION C'est LONG!!!");
+
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople1', node_id: 17});
+	$('ShoID_TreePeople1').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreePeople1");
+
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_TreePeople2', node_id: 17});
+	$('ShoID_TreePeople2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_TreePeople2");
+	
+	elm = gsho_elementCreate('tree_node', { dom_id: 'ShoID_DeepTest2', node_id:74});
+	$('ShoID_DeepTest2').appendChild(elm);	
+	elm.sho_elm_get_label().update("ShoID_DeepTest2 !!!ATTENTION C'est LONG!!!");
+
+	/**************
+	* BUBBLE test *
+	***************/
+	ShoElement_createBubble({dom_id: 'DomShoID_testBubble1', bubble_id: 'DomShoID_Bubble', txt: 'bubble one'});
+	ShoElement_createBubble({dom_id: 'DomShoID_testBubble2', bubble_id: 'DomShoID_Bubble', txt: 'bubble two'});
+}
+--></script>
+</head>
+<body onload="__init();">
+<!--
+************
+* HTM BODY *
+************ 
+-->
+
 <div id="Main">
 <table>
 <!--<tr>
@@ -236,107 +215,6 @@ function __init() {
 
 <div id="DomShoID_Bubble" class="DomShoClass_bubble"></div>
 
-
-<!--
---
--- TEST DE WIDGET 
---
--->
-<div style="visibility: hidden;" id="baseLayer" class="baseLayer">
-	<table class="baseLayer_table">
-	<caption>
-		<div class="widgetCaption">
-			<div class="widgetCaptionIcon">-</div>
-			<div class="widgetCaptionTitle">Widget</div>
-			<div class="widgetCaptionTools">-_X</div>
-		</div>
-	</caption>
-		<tr>
-			<td class="baseLayer_table_upLeft"><!-- up left --></td>
-			<td class="baseLayer_table_upMiddle"><!-- up middle --></td>
-			<td class="baseLayer_table_upRight"><!-- up right --></td>
-		</tr>
-		<tr>
-			<td class="baseLayer_table_middleLeft"><!-- middle left --></td>
-			<td class="baseLayer_table_middleMiddle"><!-- middle middle --></td>
-			<td class="baseLayer_table_middleRight"><!-- middle right --></td>
-		</tr>
-		<tr>
-			<td class="baseLayer_table_bottomLeft"><!-- bottom left --></td>
-			<td class="baseLayer_table_bottomMiddle"><!-- bottom middle --></td>
-			<td class="baseLayer_table_bottomRight"><!-- bottom right --></td>
-		</tr>
-	</table>
-</div>
-
-
-
-
-
-<!--
-<div id="widgetMain_" class="widgetBaseClass" onmouseup="winStop('%WIDGET_ID%')">
-<table border="0" cellpadding="0" cellspacing="0" width="100%" >
-	<tbody>
-		<tr>
-			<td class="widgetCorner_upLeft" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: right; vertical-align: up; height: 8px; width: 8px;">
-			</td>
-			<td class="widgetCorner_up" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: center; vertical-align: up; height: 8px;">
-			</td>
-			<td class="widgetCorner_upRight" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: left; vertical-align: up; height: 8px; width: 8px;">
-			</td>
-		</tr>
-		<tr>
-			<td class="widgetCorner_middleLeft" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: right; vertical-align: middle; width: 8px;">
-			</td>
-			<td style="vertical-align: top;">
-			<table width="100%" style="text-align: left;" border="0" cellpadding="0"
-				cellspacing="0">
-				<tbody>
-					<tr>
-						<td style="vertical-align: top;">
-						<table width="100%" border="0" cellpadding="0" cellspacing="0" height="16" style="border: 1px; border-style:none none dotted none; background-color: black; color: red ">
-							<tbody>
-								<tr>
-									<td height="16" width="16" style="horizontal-align: left"><img src="img/icon16_16.png"></td>
-									<td style="width: 100%; align: middle;" onmousedown="winMove('%WIDGET_ID%')"><span id="ShoWidgetTitleID_">widgetName</span></td>
-									<td style="align: right">[_][-]<span onclick="winClose('%WIDGET_ID%');">[X]</span></td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-					<tr>
-						<td style="vertical-align: top; background-color: white;"><div><span id="ShoWidgetContentID_" class="widgetContent">content</span></div></td>
-					</tr>
-					<tr>
-						<td style="vertical-align: top; background-color: black; color: white"><span id="ShoWidgetStatusID_" class="widgetStatusBar">content</span></td>
-					</tr>
-				</tbody>
-			</table>
-			</td>
-			<td class="widgetCorner_middleRight" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: left; vertical-align: middle; width: 8px;">
-			</td>
-		</tr>
-		<tr>
-			<td class="widgetCorner_downLeft" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: right; vertical-align: bottom; height: 8px; width: 8px;">
-			</td>
-			<td class="widgetCorner_down" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: center; vertical-align: bottom; height: 8px;">
-			</td>
-			<td class="widgetCorner_downRight" onmousedown="winMove('%WIDGET_ID%')"
-				style="text-align: left; vertical-align: top; height: 8px; width: 8px;">
-			</td>
-		</tr>
-	</tbody>
-</table>
-</div>
--->
 </body>
 </html>
 
