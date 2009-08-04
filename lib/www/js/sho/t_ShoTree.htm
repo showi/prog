@@ -11,6 +11,7 @@
 <script type="text/javascript" src="ShoGlobal.js"></script>
 <script type="text/javascript" src="ShoFunctions.js"></script>
 <script type="text/javascript" src="ShoObject.js"></script>
+<script type="text/javascript" src="ShoEventsQueue.js"></script>
 <script type="text/javascript" src="ShoNode.js"></script>
 <script type="text/javascript" src="ShoNodesManager.js"></script>
 <!--<script type="text/javascript" src="ShoWidgetTree.js"></script>-->
@@ -71,7 +72,7 @@ function ShoFunc_behaviour__init_category_entry(node, p_elm) {
 		return false;
 	}
 	var rootElm = elm.sho_elm_get_root();
-	elm.sho_elm_get_label().style.color = 'blue';
+	elm.sho_elm_get_label().style.color = 'red';
 	if (rootElm) {
 		rootElm.sho_elm_get_label().style.backgroundColor = 'white';
 	}
@@ -131,7 +132,7 @@ function __init() {
 		node_type: 'people', node_subtype: 'entry',
 		key: 'view_label', value: ShoFunc_behaviour_view_label_people_entry	
 	});
-	/* BEHAVIOR people:entry autoload */
+	/* BEHAVIOR deep:test autoload */
 	gshoNodesManager.add_behavior({
 		node_type: 'deep', node_subtype: 'test',
 		key: 'autoload', value: true	
