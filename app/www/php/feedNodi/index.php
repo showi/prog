@@ -36,7 +36,7 @@ if (!$_REQUEST['node_id']) {
 	exit(1);
 }
 $matches = null;
-if (!preg_match("/^([\d]{1,5},?){1,5}$/", $_REQUEST['node_id'], $matches)) {
+if (!preg_match("/^([\d]{1,5},?){1,10}$/", $_REQUEST['node_id'], $matches)) {
 	exit(1);
 }
 
