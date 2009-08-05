@@ -1,73 +1,66 @@
 <?php
 $SHO_LIBPATH = "/home/prog/";
 include_once($SHO_LIBPATH . "/lib/www/php/sho/CKDB_node.php");
+include_once($SHO_LIBPATH . "/lib/www/php/sho/ShoCKDB_db.php");
+include_once($SHO_LIBPATH . "/lib/www/php/sho/ShoCKDB_response.php");
 
-class CKDB_Protocol_Cresponse {
-	protected $status = false;
-	public function __construct() {
-
-	}
-	public function toJSON($p_node, &$str) {
-		$data = array();
-		//$data['identifier'] = "node_id";
-		//$data['label'] = "node_name";
-		$data['status'] = $this->status;
-		if (!$this->status) {
-			$str = json_encode($data);
-			return true;
-		}
-		$node = array();
-		$node['node_id'] = $p_node->get_node_id();
-		$node['node_name'] = $p_node->get_node_name();
-		$node['node_type'] = $p_node->get_node_type();
-		$node['children'] = array();
-		//$childs = $node->get_data('node_childs');
-		if (is_array($p_node->get_node_childs())) {
-			foreach($p_node->get_node_childs() as $i => $c) {
-				$inf = array();
-				$inf['$ref'] = array();
-				$inf['$ref']['node_id'] = $c->get_node_id();
-				$inf['$ref']['node_type'] = $c->get_node_type();
-				$inf['$ref']['node_name'] = $c->get_node_name();
-				if ($inf['$ref']) {
-					array_push($node['children'], $inf);
+function clean_request($req) {
+	$rid = split(',', $req);
+	$tab = array();
+	$tin = array();
+	if (sizeof($rid) > 0) {
+		foreach($rid as $id) {
+			//print "id: $id<br>";
+			preg_replace("[^\d]", "", $id);
+			if ($id) {
+				if (!$tin[$id]) {
+					array_push($tab, $id);
+					$tin[$id] = 1;
 				}
 			}
 		}
-		$$node['node_parent_id'] = $p_node->get_node_parent_id();
-		$data['items'] = array();
-		array_push($data['items'], $node);
-		$str = json_encode($data);
-	}
+	} else {
+		preg_replace("[^\d]", "", $req);
+		if ($req) {
+			if (!$tin[$id]) {
+				array_push($tab, $req);
+				$tin[$id] = 1;
+			}
 
-	public function set_status($status) {
-		if ($status) {
-			$this->status = true;
-		} else {
-			$this->status = true;
 		}
 	}
+	return $tab;
 }
 
-/********
- * MAIN *
- ********/
-$response = new CKDB_Protocol_Cresponse();
+if (!$_REQUEST['node_id']) {
+	exit(1);
+}
 $matches = null;
-if ($_REQUEST['node_id'] && preg_match("/^\d{1,5}$/", $_REQUEST['node_id'], $matches)) {
-	CKDB_node::$node_db_backend = 'sqlite';
-	CKDB_node::$node_db_path = 'data/feedNodi.sl3';
-	$node = new CKDB_node(null);
-	if (!$node->db_open()) {
-		print '<div class="txtError" style="color: red">Cannot open database!</div>';
-		return 0;
-	}
-	if($node->db_preLoad($_REQUEST['node_id']))  {
-		$response->set_status(true);
-		$node->db_close();
+if (!preg_match("/^([\d]{1,5},?){1,5}$/", $_REQUEST['node_id'], $matches)) {
+	exit(1);
+}
+
+$tab = clean_request($_REQUEST['node_id']);
+if (!$tab) {
+	print "Empty tab<br>";
+	exit(1);
+}
+ShoCKDB_db::$db_backend = 'sqlite';
+ShoCKDB_db::$db_path = 'data/feedNodi.sl3';
+$db = new ShoCKDB_db();
+if  (!$db->open()) {
+	print("Impossible d'ouvrir la db!<br>");
+	exit(1);
+}
+$res = new ShoCKDB_response($db);
+
+for($i = 0; $i < sizeof($tab); $i++) {
+	//print "id: " . $tab[$i] . "<br>";
+	$node_id = $tab[$i];
+	if (!$res->get_node(array('node_id' => $node_id))) {
+		print $res->to_json();
+		exit(1);
 	}
 }
-$str = null;
-$response->toJSON($node, $str);
-print $str;
-
+print $res->to_json();
+exit(0);

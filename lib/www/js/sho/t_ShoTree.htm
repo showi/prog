@@ -65,46 +65,6 @@ function popup(p) {
 	return w;
 }
 
-function ShoFunc_behaviour__init_category_entry(node, p_elm) {
-	var elm = $(p_elm);
-	if (!elm) {
-		GSHO.log({f: 'ShoFunc_behaviour__init_category_entry', t:'e', m:'No element'});
-		return false;
-	}
-	var rootElm = elm.sho_elm_get_root();
-	elm.sho_elm_get_label().style.color = 'red';
-	if (rootElm) {
-		rootElm.sho_elm_get_label().style.backgroundColor = 'white';
-	}
-	return true;
-}
-
-function ShoFunc_behaviour__init_people_entry(node, p_elm) {
-
-}
-
-function ShoFunc_behaviour_view_label_people_entry(p_elm) {
-	var elm = $(p_elm);
-	var rootElm = elm.sho_elm_get_root();
-	var node_id = rootElm.getAttribute('sho_node_id');
-	var dom_id = rootElm.getAttribute('sho_dom_id');
-	var node = gshoNodesManager.get_node_by_id(node_id);
-	var a = new Element('a', { href: '#'});
-	a.observe('click', function(event) {
-		Event.stop(event);
-		var w = popup({title: 'People::Entry',
-			options: 'width=300, height=200'
-		});
-		w.document.write('<html><head><title>'+node.node_name+'</title></head><body></body></html>');
-		var b = w.document.getElementsByTagName('body');
-		var elm = new Element('p', { });
-		elm.update('node' + toHTM(node.to_string()));
-		b[0].appendChild(elm);
-		w.focus();
-		return false;
-	}).update(node.node_name);
-	return a;
-}
 /**********
  * __init *
  **********/
@@ -112,31 +72,100 @@ function __init() {
 	/* Set global variable and start event loop processing (cheap one :) */
 	__sholib_init(); 
 
-	/* BEHAVIOR category:entry __init */
+	/* 
+	 * BEHAVIOR category:entry 
+	 */
 	gshoNodesManager.add_behavior({
 		node_type: 'category', node_subtype: 'entry',
-		key: '__init', value: ShoFunc_behaviour__init_category_entry	
-	});
-	/* BEHAVIOR category:entry autoload */	
+		key: '__init', 
+		value: function (node, p_elm) {
+			var elm = $(p_elm);
+			if (!elm) {
+				GSHO.log({f: 'ShoFunc_behaviour__init_category_entry', t:'e', m:'No element'});
+				return false;
+			}
+			var rootElm = elm.sho_elm_get_root();
+			elm.sho_elm_get_label().style.color = 'red';
+			if (rootElm) {
+				rootElm.sho_elm_get_label().style.backgroundColor = 'white';
+			}
+			return true;
+		}	
+	});	
 	gshoNodesManager.add_behavior({
 		node_type: 'people', node_subtype: 'entry',
 		key: 'autoload', value: true	
-	});
-	/* BEHAVIOR people:entry __init */
+	});	
+
+	/*
+	 * BEHAVIOR people:entry 
+	 */
 	gshoNodesManager.add_behavior({
 		node_type: 'people', node_subtype: 'entry',
-		key: '__init', value: ShoFunc_behaviour__init_people_entry	
+		key: '__init', value: function (node, p_elm) {
+			var elm = $(p_elm);
+			var rootElm = elm.sho_elm_get_root();
+			var node_id = rootElm.getAttribute('sho_node_id');
+			var dom_id = rootElm.getAttribute('sho_dom_id');
+			var node = gshoNodesManager.get_node_by_id(node_id);
+			rootElm.style.backgroundColor = 'yellow';
+
+		}	
 	});
-	/* BEHAVIOR people:entry __init */
 	gshoNodesManager.add_behavior({
 		node_type: 'people', node_subtype: 'entry',
-		key: 'view_label', value: ShoFunc_behaviour_view_label_people_entry	
+		key: 'view_label', 
+		value:function (p_elm) {
+			var elm = $(p_elm);
+			var rootElm = elm.sho_elm_get_root();
+			var node_id = rootElm.getAttribute('sho_node_id');
+			var dom_id = rootElm.getAttribute('sho_dom_id');
+			var node = gshoNodesManager.get_node_by_id(node_id);
+			var a = new Element('a', { href: '#'});
+			a.observe('click', function(event) {
+				Event.stop(event);
+				var w = popup({title: 'People::Entry',
+					options: 'width=300, height=200'
+				});
+				w.document.write('<html><head><title>'+node.node_name+'</title></head><body></body></html>');
+				var b = w.document.getElementsByTagName('body');
+				var elm = new Element('p', { });
+				elm.update('node' + toHTM(node.to_string()));
+				b[0].appendChild(elm);
+				w.focus();
+				return false;
+			}).update(node.node_name);
+			return a;
+		}	
 	});
-	/* BEHAVIOR deep:test autoload */
+	
+	/* 
+	 * BEHAVIOR deep:test 
+	 */
 	gshoNodesManager.add_behavior({
 		node_type: 'deep', node_subtype: 'test',
 		key: 'autoload', value: true	
 	});
+	gshoNodesManager.add_behavior({
+		node_type: 'deep', node_subtype: 'test',
+		key: '__init', value: function() {
+
+		}	
+	});
+	gshoNodesManager.add_behavior({
+		node_type: 'deep', node_subtype: 'test',
+		key: 'view_label', 
+		value: function(p_elm) {
+			var elm = $(p_elm);
+			var rootElm = elm.sho_elm_get_root();
+			var node_id = rootElm.getAttribute('sho_node_id');
+			var dom_id = rootElm.getAttribute('sho_dom_id');
+			var node = gshoNodesManager.get_node_by_id(node_id);
+			rootElm.style.backgroundColor= 'red';
+			return node.node_name + '-' + node.node_id;
+		}	
+	});
+	
 
 	/*******************
 	* Create our trees *
@@ -191,7 +220,9 @@ function __init() {
 -->
 	<tr>
 		<td colspan="2">
-		<div id="DomShoID_testBubble1" class="bubbleZone">&nbsp;</div>
+		<div id="DomShoID_testBubble1" class="bubbleZone">
+			<div style="color: white; font-size: 0.7em">XHR numbers: <div id="XHR_COUNT">undefined</div></div>
+		</div>
 		</td>
 	</tr>
 	<tr style="vertical-align: top">
@@ -208,13 +239,14 @@ function __init() {
 	</tr>
 		<tr>
 		<td colspan="2">
-		<div id="DomShoID_testBubble2" class="bubbleZone">&nbsp;</div>
+		<div id="DomShoID_testBubble2" class="bubbleZone">
+		</div>
 		</td>
 	</tr>
 </table>
 </div>
 
-<div id="DomShoID_Bubble" class="DomShoClass_bubble"></div>
+<div id="DomShoID_Bubble" class="DomShoClass_bubble"</div>
 
 </body>
 </html>
