@@ -1,14 +1,103 @@
 <?php
 
+class wssubSubtitle {
+	/**
+	 * @var unknown_type
+	 */
+	public $lang;
+	public $id;
+	
+	public function __construct() {
+		$this->lang = null;
+		$this->id = null;
+	}
+	
+	public function set_id($value) {
+		$this->id = $value;
+	}
+	public function get_id() {
+		return $this->id;
+	}
+	public function set_lang($value) {
+		$this->lang = $value;
+	}
+	public function get_lang() {
+		return $this->lang;
+	}	
+	public function to_string() {
+		return ("sub: " . $this->get_lang() . " id: " . $this->get_id());
+	}
+}
+
 /**
  * @author sho
  *
  */
-class wssubSeasons {
+class wssubEpisode {
 	/**
 	 * @var unknown_type
 	 */
-	public $id;
+	private $num;
+	private $title;
+	private $subtitles;
+	/**
+	 * @return unknown_type
+	 */
+	public function __construct() {
+		$this->num = null;
+		$this->title = null;
+		$this->subtitles = array();
+	}
+	public function set_num($value) {
+		$this->num = $value;
+	}
+	public function get_num() {
+		return $this->num;
+	}	
+	public function set_title($value) {
+		$this->title = $value;
+	}
+	public function get_title() {
+		return $this->title;
+	}	
+	public function add_sub($sub) {
+		if (!$sub) {
+			exit("no sub!");
+		}
+		array_push($this->subtitles, $sub);
+	}
+	public function to_string() {
+		$str = "Episode " . $this->get_num() . " - " . $this->get_title() . "<br>";
+		if (sizeof($this->subtitles) > 0) {
+			foreach($this->subtitles as $sub) {
+				$str .= "&nbsp;-> " . $sub->to_string() . "<br>";
+			}
+		}
+		return $str;
+	}
+	public function to_html() {
+		$str = "<div>Episode " . $this->get_num() . " - " . $this->get_title() . "<br>";
+		if (sizeof($this->subtitles) > 0) {
+			foreach($this->subtitles as $sub) {
+				$str .= '<a href="http://www.tvsubtitles.net/download-'.$sub->get_id().'.html">';
+				$str .= '<img alt="'.$sub->get_lang().'" src="http://www.tvsubtitles.net/images/flags/'.$sub->get_lang().'.gif">';
+				$str .= '</a>';
+			}
+		}
+		$str .= "</div>";
+		return $str;
+	}	
+
+}
+/**
+ * @author sho
+ *
+ */
+class wssubSeason {
+	/**
+	 * @var unknown_type
+	 */
+	public $num;
 	/**
 	 * @var unknown_type
 	 */
@@ -22,9 +111,44 @@ class wssubSeasons {
 	 * @return unknown_type
 	 */
 	public function __construct() {
-		$this->id = null;
-		$this->episodes = null;
+		$this->num = null;
 		$this->episodes = array();
+	}
+	
+	public function set_num($value) {
+		$this->num = $value;
+	}
+	public function get_num() {
+		return $this->num;
+	}
+	public function get_episodes() {
+		return $this->episodes;
+	}
+	
+	public function add_episode($episode) {
+		if (!$episode) {
+			exit("No episode");
+		}
+		array_push($this->episodes, $episode);
+	}
+	
+	public function to_string() {
+		$str = "Saison " . $this->get_num() . " len: " . sizeof($this->episodes) . "<br>";
+		foreach($this->episodes as $i => $ep) {
+			$str .= $ep->to_string();
+		}
+		return $str;
+	}
+	public function to_html() {
+		$str = '<div><p style="font-color: red">Saison ' . $this->get_num() . "</p>";
+		foreach($this->episodes as $ep) {
+			if (!$ep->get_num()) {
+				continue;
+			}
+			$str .= '<div style="display: inline; background-color: black">' . $ep->to_html() . "</div>";
+		}
+		$str .= "</div>";
+		return $str;
 	}
 }
 /**
@@ -61,7 +185,7 @@ class wssubTvShow {
 		$this->name = null;
 		$this->href = null;
 		$this->languages = array();
-		$this->seasons = new wssubSeasons();
+		$this->seasons =  array();
 	}
 	/**
 	 *
@@ -74,6 +198,15 @@ class wssubTvShow {
 	 */
 	public function set_name($value) {
 		$this->name = $value;
+	}
+	public function get_seasons() {
+		return $this->seasons;
+	}
+	public function add_season($season) {
+		if (!$season) {
+			exit("No season");
+		}
+		array_push($this->seasons, $season);
 	}
 	/**
 	 *
@@ -238,7 +371,7 @@ abstract class wssubSite {
 	/**
 	 *
 	 */
-	public function toHTML() {
+	public function to_html() {
 		$str = "";
 		foreach($this->get_data_store() as $show) {
 			if (!$show) {
@@ -247,8 +380,11 @@ abstract class wssubSite {
 			$str .= '<p class="tvshow" style="width: 100%; background-color: black; color: white; display: block; border-size: 1px; border-color: white">';
 			$str .= '<div class="name"><a href="'.$this->prefix_url . $show->get_href() . '">' . $show->get_name() . "[id:".$show->get_id()."]</a></div>";
 			$str .= '<div>';
-			foreach ($show->get_languages() as $lang) {
-				$str .= '<img class="lang" src="'.$this->prefix_url.'/images/flags/' . $lang['alt'] . '.gif" alt="' . $lang['alt'] . '"></img>|';
+//			foreach ($show->get_languages() as $lang) {
+//				$str .= '<img class="lang" src="'.$this->prefix_url.'/images/flags/' . $lang['alt'] . '.gif" alt="' . $lang['alt'] . '"></img>|';
+//			}
+			foreach($show->get_seasons() as $season) {
+				$str .= $season->to_html();
 			}
 			$str .= '</div>';
 			$str .= '</p>';

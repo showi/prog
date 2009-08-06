@@ -7,7 +7,7 @@ include_once('wssubSite.php');
  */
 
 class wssubSite_tvsubtitles extends wssubSite {
-	
+
 	/**
 	 * @return unknown_type
 	 */
@@ -17,7 +17,7 @@ class wssubSite_tvsubtitles extends wssubSite {
 		$this->set_search_url("http://www.tvsubtitles.net/search.php?q=%search%");
 		$this->set_search_id_url("http://www.tvsubtitles.net/tvshow-%id%.html");
 		$this->set_download_id_url("http://www.tvsubtitles.net/download-%id%.html");
-		
+
 		//$this->data_store = array();
 	}
 
@@ -62,7 +62,7 @@ class wssubSite_tvsubtitles extends wssubSite {
 	/**
 	 *
 	 */
-	public function node_get_search_id_result($doc) { /// PAS CODERRRRRRRRRRR 
+	public function node_get_search_id_result($doc) { /// PAS CODERRRRRRRRRRR
 		if (!$doc) {
 			exit("no doc!");
 			return null;
@@ -91,11 +91,24 @@ class wssubSite_tvsubtitles extends wssubSite {
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 *
 	 */
+	public function load($url) {
+		if (!$url) {
+			exit ("No url!");
+			return null;
+		}
+		$doc = new DOMDocument();
+		$doc->validateOnParse = true;
+		if (!@$doc->loadHTMLFile($url)) {
+			print("Cannot load file $url");
+			return null;
+		}
+		return $doc;
+	}
 	/**
 	 *
 	 */
@@ -108,22 +121,13 @@ class wssubSite_tvsubtitles extends wssubSite {
 		if (!$url) {
 			return null;
 		}
-		$doc = new DOMDocument();
-		$doc->validateOnParse = true;
-		if (!@$doc->loadHTMLFile($url)) {
-			print("Cannot load file $url");
-			return null;
-		}
-		return $doc;
+
 	}
-	
+
 	/**
 	 *
 	 */
-	/**
-	 *
-	 */
-	public function load($name) {
+	public function load_search($name) {
 		if (!$name) {
 			exit("no name!");
 			return null;
@@ -132,15 +136,9 @@ class wssubSite_tvsubtitles extends wssubSite {
 		if (!$url) {
 			return null;
 		}
-		$doc = new DOMDocument();
-		$doc->validateOnParse = true;
-		if (!@$doc->loadHTMLFile($url)) {
-			print("Cannot load file $url");
-			return null;
-		}
-		return $doc;
+		return $this->load($url);
 	}
-	
+
 	/**
 	 *
 	 */
@@ -178,42 +176,88 @@ class wssubSite_tvsubtitles extends wssubSite {
 		}
 		return 1;
 	}
-	
-	
+
+
 	public function get_sub_parse_doc($doc) {
-		
-		$body = $doc->getElementsByTagName("body");
-		print dom_dump($body );
-		//$body = $body->item(0);
 		$tab = $doc->getElementById("table5");
-	
-		print "chargement dok sub: $url doc: $tab<br>";
 		if (!$tab) {
 			return 0;
 		}
-		print "chargement dok éé sub: $url<br>";
+		$tdArray = array(
+		0 => null,
+		1 => 'num',
+		2 => 'title',
+		3 => 'amount',
+		4 => 'subtitles'
+		);
+		$list = array();
 		foreach($tab->getElementsByTagName("tr") as $tr) {
-			print "nv: " . $tr->textContent . "<br>";
+			$ep = new wssubEpisode();
+			//print $tr->textContent . "<br>";
+			$count = 0;
+			foreach($tr->getElementsByTagName("td") as $td) {
+				$count++;
+				if (!$tdArray[$count]) {
+					continue;
+				}
+				if ($tdArray[$count] == 'num') {
+					$ep->set_num($td->textContent);
+				}
+				if ($tdArray[$count] == 'title') {
+					$ep->set_title($td->textContent);
+				}
+				if ($tdArray[$count] == 'num') {
+					$ep->set_num($this->extract_episode_number($td->textContent));
+				}
+				if ($tdArray[$count] == 'subtitles') {
+					foreach($td->getElementsByTagName('a') as $a) {
+						$sub = new wssubSubtitle();
+						//print "href:"  . $a->getAttribute('href') . "<br>";
+						$sub->set_id($this->extract_subtitle_id($a->getAttribute('href')));
+						//print "ID: " . $sub->get_id() . "<br>";
+						$img_pool = $a->getElementsByTagName('img');					
+						if (!$img_pool) {
+							exit("No image for subtitle<br>");
+						}
+						$img = $img_pool->item(0);
+						if (!$img) {
+							exit("No image for subtitle<br>");
+						}
+						if ($img->hasAttribute('alt')) {
+							$sub->set_lang($img->getAttribute('alt'));
+						}
+						$ep->add_sub($sub);
+					}
+				}
+			}
+			array_push($list, $ep);
 		}
-		print "chargement ok sub: $url<br>";
+		return $list;
 	}
 	/**
 	 *
 	 */
-	public function get_sub($show, $season, $num) {
+	public function get_sub($show, $num_season, $num_episode) {
 		$id = $show->get_id();
-		$url = "http://www.tvsubtitles.net/tvshow-$id-$season.html";
+		$url = "http://www.tvsubtitles.net/tvshow-$id-$num_season.html";
 		//$url = "data/www.tvsubtitles.net/tvshow-13-1.html";
-		print "url: $url<br>";
+		//print "url: $url<br>";
 		$doc = $this->load($url);
 		if (is_null($doc) || !$doc) {
 			return 0;
 		}
-		print "get_sub_parse_doc<br>";
-		$this->get_sub_parse_doc($doc);
+		//print $doc->saveHTML();
+		$season = new wssubSeason();
+		$season->set_num($num_season);
+		$list = $this->get_sub_parse_doc($doc);
+		foreach($list as $ep) {
+			$season->add_episode($ep);
+			//print $ep->to_string();
+		}
+		$show->add_season($season);
 		return 1;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -222,7 +266,7 @@ class wssubSite_tvsubtitles extends wssubSite {
 			exit("no name!");
 			return 0;
 		}
-		$doc = $this->load($name);
+		$doc = $this->load_search($name);
 		if (is_null($doc)) {
 			return 0;
 		}
@@ -235,7 +279,7 @@ class wssubSite_tvsubtitles extends wssubSite {
 		}
 		return 1;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -260,22 +304,32 @@ class wssubSite_tvsubtitles extends wssubSite {
 				continue;
 			}
 			$url = "data/www.tvsubtitles.net/tvshow-13.html";
-			print "Load id: $id ($url)<br>";
+			//print "Load id: $id ($url)<br>";
 			$doc = $this->load($url);
 			if (!$doc) {
 				print "Cannot get url: $url<br>";
-			}		
+			}
 			if (is_null($doc)) {
 				return 0;
 			}
 			$node = $this->node_get_search_id_result($doc);
 			//print_r($doc);
 		}
- 	}
-	
+	}
+
 	/**
-	 * 
+	 *
 	 */
+	public function extract_subtitle_id($txt, &$matches = null) {
+		if (!$txt) {
+			return null;
+		}
+		$matches = null;
+		if (!preg_match("/^.*subtitle-(\d+)\.html$/", $txt, $matches)) {
+			return null;
+		}
+		return $matches[1];
+	}
 	/**
 	 *
 	 */
@@ -284,10 +338,21 @@ class wssubSite_tvsubtitles extends wssubSite {
 			return null;
 		}
 		$matches = null;
-		if (!preg_match("/^.*\/tvshow-(\d+)\.html$/", $txt, $matches)) {
+		if (!preg_match("/^.*tvshow-(\d+)\.html$/", $txt, $matches)) {
 			return null;
 		}
 		return $matches[1];
+	}
+	
+	public function extract_episode_number ($txt, &$matches = null) {
+		if (!$txt) {
+			return null;
+		}
+		$matches = null;
+		if (!preg_match("/^\s*(\d+)\s*x(\d+)\s*$/", $txt, $matches)) {
+			return null;
+		}
+		return $matches[2];
 	}
 
 }
