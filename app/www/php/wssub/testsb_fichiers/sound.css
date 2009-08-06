@@ -1,0 +1,60 @@
+body {
+        background-color: black;
+        color: #66CCCC;
+        margin: 0px 0px 0px 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+}
+a {
+	text-decoration: none;
+        color: #99FF99;
+}
+a:visited {
+        color: #FF3333;
+}
+a:hover {
+        color: #FFFF66;
+}
+
+div.file {
+	border-bottom-style: dashed;
+	border-width: thin;
+	border-color: gray;
+}
+div.filename {
+	display: inline;
+}
+div.filesize {
+	background-color: black;
+	position: absolute;
+	right: 10px;
+	text-align: right;
+	display: inline;
+	z-index: 2;
+}
+div.category {
+	text-transform: capitalize;
+	white-space: nowrap;
+	font-size: small;
+	display: inline;
+}
+
+div.categories {
+	border: gray solid thin;
+}
+div.totalLength {
+	visibility: hidden;
+}
+
+
+ul.filepool {
+	list-style-type: decimal-leading-zero;
+
+}
+
+.w3valid {
+	display: inline;
+	position: relative;
+	right: 1px;
+	left: 1px;
+}

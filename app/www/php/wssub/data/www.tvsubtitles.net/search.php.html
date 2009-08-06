@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+
+
+
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   <link href="http://www.tvsubtitles.net/favicon.ico" rel="shortcut icon">
+   <link rel="stylesheet" href="search.php_fichiers/style.css" type="text/css">
+   <title>TVsubtitles.net - Search</title>
+<style type="text/css" charset="utf-8">/* See license.txt for terms of usage */
+
+#firebugBody {
+    position: fixed;
+    top:0;
+    left:0;
+    margin:0;
+    padding:0;
+    width:1px;
+    height:1px;
+    overflow:visible;
+}
+
+.firebugCanvas {
+    position:fixed;
+    top: 0;
+    left: 0;
+    display:none;
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.firebugHighlight {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: #3875d7;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugLayoutBoxParent {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: transparent;
+    border-top: 0 none;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px dashed #BBBBBB;
+    border-left: 0 none;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.firebugRuler {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugRulerH {
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: url(chrome://firebug/skin/rulerH.png) repeat-x;
+    border-top: 1px solid #BBBBBB;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px solid #000000;
+}
+
+.firebugRulerV {
+    top: 0;
+    left: -15px;
+    width: 14px;
+    height: 100%;
+    background: url(chrome://firebug/skin/rulerV.png) repeat-y;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #000000;
+    border-bottom: 1px dashed #BBBBBB;
+}
+
+.overflowRulerX > .firebugRulerV {
+    left: 0;
+}
+
+.overflowRulerY > .firebugRulerH {
+    top: 0;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.firebugLayoutBox {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    outline: 0;
+}
+
+.firebugLayoutBoxOffset {
+    z-index: 2147483647;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.firebugLayoutBoxMargin {
+    background-color: #EDFF64;
+}
+
+.firebugLayoutBoxBorder {
+    background-color: #666666;
+}
+
+.firebugLayoutBoxPadding {
+    background-color: SlateBlue;
+}
+
+.firebugLayoutBoxContent {
+    background-color: SkyBlue;
+}
+
+/*.firebugHighlightGroup .firebugLayoutBox {
+    background-color: transparent;
+}
+
+.firebugHighlightBox {
+    background-color: Blue !important;
+}*/
+
+.firebugLayoutLine {
+    z-index: 2147483647;
+    background-color: #000000;
+    opacity: 0.4;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0 none;
+}
+
+.firebugLayoutLineLeft,
+.firebugLayoutLineRight {
+    position: fixed;
+    width: 1px;
+    height: 100%;
+}
+
+.firebugLayoutLineTop,
+.firebugLayoutLineBottom {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
+
+.firebugLayoutLineTop {
+    margin-top: -1px;
+    border-top: 1px solid #999999;
+}
+
+.firebugLayoutLineRight {
+    border-right: 1px solid #999999;
+}
+
+.firebugLayoutLineBottom {
+    border-bottom: 1px solid #999999;
+}
+
+.firebugLayoutLineLeft {
+    margin-left: -1px;
+    border-left: 1px solid #999999;
+}
+</style></head><body>
+
+   <div id="content">
+      <div id="header">
+         <p id="top_info"><noindex><a href="http://www.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-english.png" alt="english" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://es.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-spanish.png" alt="spanish" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://fr.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-french.png" alt="french" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://ru.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-russian.png" alt="russian" border="0" width="30" height="16" hspace="2"></a><br>
+         <a><img src="search.php_fichiers/flag-none.png" alt="ukrainian" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://ua.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-ukrainian.png" alt="ukrainian" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://hu.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-hungarian.png" alt="hungarian" border="0" width="30" height="16" hspace="2"></a>
+         <a href="http://gr.tvsubtitles.net/search.php?q=de"><img src="search.php_fichiers/flag-greek.png" alt="greek" border="0" width="30" height="16" hspace="2"></a><br>
+         <a href="http://www.moviesubtitles.org/" class="othersite">Movie subtitles</a></noindex></p><div id="logo">
+            <h1><a href="http://www.tvsubtitles.net/" title="Download latest TV Show and TV Series subtitles">TVsubtitles<span class="title">.net</span></a></h1>
+            <p>Download latest TV Show and TV Series subtitles</p>
+         </div><div style="float: left;"></div></div><div id="tabs">
+         <ul>
+            <li><a href="http://www.tvsubtitles.net/" accesskey="m">Home</a></li>
+<a href="http://www.tvsubtitles.net/" accesskey="m">            </a><li><a href="http://www.tvsubtitles.net/tvshows.html" accesskey="v">TV Shows</a></li>
+            <li><a href="http://www.tvsubtitles.net/new.html" accesskey="r">New</a></li>
+<a href="http://www.tvsubtitles.net/new.html" accesskey="r">            </a><li><a class="current" href="http://www.tvsubtitles.net/top.html" accesskey="i">Top</a></li>
+<a class="current" href="http://www.tvsubtitles.net/top.html" accesskey="i">            </a><li><a href="http://www.tvsubtitles.net/add.html" accesskey="d">Add</a></li>
+<a href="http://www.tvsubtitles.net/add.html" accesskey="d">            </a><li><a href="http://www.tvsubtitles.net/feedback.html" accesskey="a">Feedback</a></li>
+         </ul>
+         <span style="position: relative; left: -720px; top: 67px;">
+         Show subtitles <select size="1" name="setlang" style="font-family: Tahoma,Arial,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 0.95em; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none;" onchange="javascript: window.location = 'setlang.php?page=/search.php?q=de&amp;setlang1=' + this.value;">
+  			<option value="all">all</option><option value="en">english</option><option value="es">spanish</option><option value="fr">french</option><option value="de">german</option><option value="br">portugese(br)</option><option value="ru">russian</option><option value="ua">ukrainian</option><option value="it">italian</option><option value="gr">greek</option><option value="ar">arabic</option><option value="hu">hungarian</option><option value="pl">polish</option><option value="tr">turkish</option></select><img src="search.php_fichiers/spacer.gif" alt="" style="margin: 2px 5px;" align="top" border="0" width="18" height="12">
+</span>
+         <div id="search">
+            <form method="post" action="search.php">
+               <p><input name="q" class="search" value="de" type="text"> <input value="Search" class="button" type="submit"></p>
+            </form>
+         </div>
+      </div><div class="left">
+<div class="left_articles">
+            <div style="padding: 0pt 0pt 0pt 9px; background: rgb(255, 255, 255) url(images/search.png) no-repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; width: 48px; height: 55px; float: left;"></div>
+            <h2>Search</h2>
+            <p class="description">Search results</p><p><script type="text/javascript"><!--
+google_ad_client = "pub-5531416431908099";
+/* tvsubtitles small 234x60, ������� 24.11.08 */
+google_ad_slot = "2896810376";
+google_ad_width = 234;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="search.php_fichiers/show_ads.js">
+</script></p><ul style="margin-left: 2em;"><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-13.html">Dead Like Me (2003-2004)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-29.html">Desperate Housewives (2004-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/de.gif" alt="de" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ua.gif" alt="ua" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ar.gif" alt="ar" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-31.html">The Dead Zone (2002-2007)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-44.html">Hidden Palms (2007-2007)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ar.gif" alt="ar" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-48.html">Deadwood (2004-2006)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-55.html">Dexter (2006-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/de.gif" alt="de" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ar.gif" alt="ar" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-64.html">The Dresden Files (2007-2007)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-82.html">Pepper Dennis (2006-2006)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-94.html">Six Feet Under (2001-2005)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-125.html">Avatar: The Last Airbender (2005-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-161.html">Arrested Development (2003-2006)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-162.html">The No. 1 Ladies' Detective Agency (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-163.html">Knight Rider (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/de.gif" alt="de" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ar.gif" alt="ar" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-165.html">Wonderfalls (2004-2004)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-166.html">Women's Murder Club (2007-2008)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-171.html">Til Death (2006-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-176.html">Black Adder (1983-1989)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-177.html">Blade (2006-2006)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-245.html">The Pretender (1996-2000)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-243.html">It's Always Sunny in Philadelphia (2005-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-282.html">Sanctuary Webepisodes (2007-2007)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-285.html">Charlie Jade (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/pl.gif" alt="pl" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-308.html">The Suite Life on Deck (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-326.html">Star Trek: Deep Space Nine (1993-1999)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-332.html">Highlander (1992-1998)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-353.html">Dead Set (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-357.html">Law &amp; Order SVU (1999-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-390.html">The Commander (2003-2007)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-424.html">Wallander (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-428.html">The Devil's Whore (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/ru.gif" alt="ru" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-431.html">Kitchen Confidential (2005-2005)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-444.html">Pride and Prejudice (1995-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-214.html">Demons (2009-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/hu.gif" alt="hu" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/tr.gif" alt="tr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-253.html">Wonder Woman (1976-1979)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-272.html">Undeclared (2001-2002)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-277.html">Law &amp; Order (1990-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-294.html">Sliders (1995-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-295.html">Crusade (1999-1999)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-301.html">Forbidden Science (2009-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-303.html">Law and Order UK (2009-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-306.html">Knight Rider 1982 (1982-1986)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-365.html">Heroes Webisodes (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/gr.gif" alt="gr" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-407.html">Daniel Deronda (2002-2002)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-421.html">Important Things with Demetri Martin (2009-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/br.gif" alt="br" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-435.html">Underbelly (2008-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-457.html">The Wonder Years (1988-1993)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/es.gif" alt="es" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-485.html">Witchblade (2001-2002)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-494.html">Drop Dead Diva (2009-2009)</a>&nbsp;&nbsp;&nbsp;<img src="search.php_fichiers/en.gif" alt="en" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/fr.gif" alt="fr" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/de.gif" alt="de" align="absmiddle" border="0" width="18" height="12">&nbsp;<img src="search.php_fichiers/it.gif" alt="it" align="absmiddle" border="0" width="18" height="12">&nbsp;</div></li><li style="margin: 10px 0pt; font-size: 120%; font-weight: bold;"><div style=""><a href="http://www.tvsubtitles.net/tvshow-487.html">Defying Gravity (2009-2009)</a>&nbsp;&nbsp;&nbsp;</div></li></ul><br></div>
+</div>
+<div id="right">
+         <div class="boxtop"></div>
+         <div class="box">
+            <p><img src="search.php_fichiers/top.png" alt="TOP TV Shows" title="TOP TV Shows" class="image">
+            <b>TOP TV Shows</b><br></p><table><tbody><tr><td><ul><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-8.html">Heroes (2006)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-2.html">Prison Break (2005)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-3.html">Lost (2004)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-9.html">House M.D. (2004)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-7.html">Grey's Anatomy (2005)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-38.html">24 (2001)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-114.html">Gossip Girl (2007)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-110.html">How I Met Your Mother (2005)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-29.html">Desperate Housewives (2004)</a></li><li style="margin-left: 1.3em;"><a href="http://www.tvsubtitles.net/tvshow-154.html">The Big Bang Theory (2007)</a></li></ul></td></tr></tbody></table>
+         </div><center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-5531416431908099";
+/* tvsubtitles right  250x250, ������� 24.11.08 */
+google_ad_slot = "2509467307";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="search.php_fichiers/show_ads.js">
+</script>
+</center><div class="boxtop"></div>
+         <div class="box">
+            <p><img src="search.php_fichiers/statistics.png" alt="Site statistics" title="Site statistics" class="image">
+            <b>Site statistics</b><br></p><table cellpadding="0" cellspacing="0"><tbody><tr><td align="right">Total subtitles:</td><td> 76749</td></tr><tr><td align="right">TV Shows:</td><td> 494</td></tr><tr><td align="right">TV Episodes:</td><td> 20672</td></tr><tr><td align="right">Downloads:</td><td> 26750352</td></tr></tbody></table><p style="margin-top: 0.5em;"><b>Amount subtitles in languages:</b></p>
+<table style="margin-top: 0.5em;" cellpadding="0" cellspacing="0" width="90%"><tbody><tr><td class="stat"><img src="search.php_fichiers/en.gif" alt="english" title="english" border="0" width="18" height="12"> - 18430</td><td class="stat"><img src="search.php_fichiers/gr.gif" alt="greek" title="greek" border="0" width="18" height="12"> - 11825</td><td class="stat"><img src="search.php_fichiers/fr.gif" alt="french" title="french" border="0" width="18" height="12"> - 10192</td></tr><tr><td class="stat"><img src="search.php_fichiers/br.gif" alt="portugese(br)" title="portugese(br)" border="0" width="18" height="12"> - 6784</td><td class="stat"><img src="search.php_fichiers/es.gif" alt="spanish" title="spanish" border="0" width="18" height="12"> - 6483</td><td class="stat"><img src="search.php_fichiers/pl.gif" alt="polish" title="polish" border="0" width="18" height="12"> - 5313</td></tr><tr><td class="stat"><img src="search.php_fichiers/ru.gif" alt="russian" title="russian" border="0" width="18" height="12"> - 4849</td><td class="stat"><img src="search.php_fichiers/it.gif" alt="italian" title="italian" border="0" width="18" height="12"> - 3784</td><td class="stat"><img src="search.php_fichiers/hu.gif" alt="hungarian" title="hungarian" border="0" width="18" height="12"> - 3016</td></tr><tr><td class="stat"><img src="search.php_fichiers/tr.gif" alt="turkish" title="turkish" border="0" width="18" height="12"> - 2589</td><td class="stat"><img src="search.php_fichiers/de.gif" alt="german" title="german" border="0" width="18" height="12"> - 2100</td><td class="stat"><img src="search.php_fichiers/ar.gif" alt="arabic" title="arabic" border="0" width="18" height="12"> - 1266</td></tr><tr><td class="stat"><img src="search.php_fichiers/ua.gif" alt="ukrainian" title="ukrainian" border="0" width="18" height="12"> - 118</td></tr></tbody></table><p style="margin-top: 0.5em;"><b>Downloads:</b></p>
+<table style="margin-top: 0.5em;" cellpadding="0" cellspacing="0" width="90%"><tbody><tr><td class="stat"><img src="search.php_fichiers/en.gif" alt="english" title="english" border="0" width="18" height="12"> - 13.84 mil</td><td class="stat"><img src="search.php_fichiers/fr.gif" alt="french" title="french" border="0" width="18" height="12"> - 5.33 mil</td><td class="stat"><img src="search.php_fichiers/gr.gif" alt="greek" title="greek" border="0" width="18" height="12"> - 3.82 mil</td></tr><tr><td class="stat"><img src="search.php_fichiers/es.gif" alt="spanish" title="spanish" border="0" width="18" height="12"> - 1.25 mil</td><td class="stat"><img src="search.php_fichiers/ru.gif" alt="russian" title="russian" border="0" width="18" height="12"> - 600940</td><td class="stat"><img src="search.php_fichiers/br.gif" alt="portugese(br)" title="portugese(br)" border="0" width="18" height="12"> - 587980</td></tr><tr><td class="stat"><img src="search.php_fichiers/hu.gif" alt="hungarian" title="hungarian" border="0" width="18" height="12"> - 288770</td><td class="stat"><img src="search.php_fichiers/it.gif" alt="italian" title="italian" border="0" width="18" height="12"> - 261239</td><td class="stat"><img src="search.php_fichiers/pl.gif" alt="polish" title="polish" border="0" width="18" height="12"> - 254193</td></tr><tr><td class="stat"><img src="search.php_fichiers/de.gif" alt="german" title="german" border="0" width="18" height="12"> - 234641</td><td class="stat"><img src="search.php_fichiers/tr.gif" alt="turkish" title="turkish" border="0" width="18" height="12"> - 175944</td><td class="stat"><img src="search.php_fichiers/ar.gif" alt="arabic" title="arabic" border="0" width="18" height="12"> - 100295</td></tr><tr><td class="stat"><img src="search.php_fichiers/ua.gif" alt="ukrainian" title="ukrainian" border="0" width="18" height="12"> - 9518</td></tr></tbody></table>
+         </div><center><a href="http://www.tvsubtitles.net/showrss.php"><img src="search.php_fichiers/rss.png" alt="rss channel" border="0" width="55" height="24"></a><br>
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t15.1;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";i"+escape("��"+document.title.substring(0,80))+";"+Math.random()+
+"' alt='' title='LiveInternet: �������� ����� ���������� �� 24 ����, ����������� �� 24 ���� � �� �������' "+
+"border=0 width=88 height=31><\/a>")//--></script><a href="http://www.liveinternet.ru/click" target="_blank"><img src="search.php_fichiers/hit.gif" alt="" title="LiveInternet: �������� ����� ���������� �� 24 ����, ����������� �� 24 ���� � �� �������" border="0" width="88" height="31"></a><!--/LiveInternet-->
+
+<script src="search.php_fichiers/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2658235-1";
+urchinTracker();
+</script>
+
+</center></div>
+<div class="footer"><div align="center"><small>{SAPE} <a href="http://www.sccctv.org/">
+Сериалы </a></small></div>      <div style="position: fixed; left: 50%; top: 0%; margin-top: 10px; margin-left: 500px;">
+</div>
+© Copyright 2009 TVsubtitles.net. TTTTT.
+      </div>
+   </div>
+
+
+</body></html>
