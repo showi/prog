@@ -1,0 +1,90 @@
+body {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.show_container {
+	width: 100%;
+}	
+.show {
+	border-style: solid;
+	border-width: 1px;
+	margin: 1px 1px 1px 1px;
+}	
+.log_class {
+	display: inline;
+}
+.log_msg {
+	display: inline;
+}
+.log_container {
+	border-style: dashed;
+	border-width: 1px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	visibility: visible;
+	background-color: grey;
+	color: white;
+}
+
+.log_container {
+	margin: 0px 0px 0px 0px;	
+	padding: 1px 1px 1px 1px;
+}
+
+.log_message {
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	margin: 1px 1px 1px 1px;
+}
+
+.log_message_info {
+	color: LightGreen ;
+}
+
+.log_message_error {
+	color: OrangeRed ;
+}
+
+.log_message_warn {
+	color: Yellow ;
+}
+.season {
+	border-style: dashed;
+	border-width: 1px;
+	font-weight: bold;
+}
+.episode_container {
+	width: 100%;
+	font-weight: normal;
+	display: inline;
+}
+.episode {
+	width: 100%;
+}
+.episode_number {
+	display: inline;
+	width: 30%;
+}
+.episode_title {
+	display: inline;
+	width: 30%
+}
+.subtitle_container {
+	display: inline;
+	width: 40%;
+	align: right;
+}
+.subtitle {
+	display: inline;
+}
+.subtitle_href {
+	display: inline;
+}
+.subtitle_lang {
+	display: inline;
+}
+.inline {
+	display: inline;
+}
