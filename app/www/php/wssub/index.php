@@ -1,5 +1,7 @@
 <?php
-include_once('wssubSite_tvsubtitles.php');
+function __autoload($class_name) {
+    require_once $class_name . '.php';
+}
 function dom_dump($obj) {
 	if ($classname = get_class($obj)) {
 		$retval = "Instance of $classname, node list: \n";
@@ -28,30 +30,32 @@ function dom_dump($obj) {
 	}
 	return htmlspecialchars($retval);
 }
-$file = "data/www.tvsubtitles.net/search.php.html";
-$prefix_url = "http://www.tvsubtitles.net/";
-if ($_REQUEST['search']) {
-	if (!preg_match("/^[\w\d_\(\) -]+$/", $_REQUEST['search'], $matches)) {
-		exit("{'status': false}");
-	}
-	if (!preg_match("/^(\d+)$/", $_REQUEST['s'], $matches_season)) {
-		exit("{'status': false}");
-	}
-	if (!preg_match("/(\d+)$/", $_REQUEST['n'], $matches_number)) {
-		exit("{'status': false}");
-	}
-	$file = "http://www.tvsubtitles.net/search.php?q=".$_REQUEST['search'];
-}
+$matches = null;
+$matches_season = null;
+$matches_number = null;
+
+$request = new wssubRequest();
+$request->set_http_request($_REQUEST);
+
 $s = new wssubSite_tvsubtitles();
-$s->search_url = $file; // LOCAL LOCAL
-$str = "";
-if (!$s->search($_REQUEST['search'])) {
-	exit('search fail');
+if ($_REQUEST['s'] || $_REQUEST['search']) {
+	$str = "";
+	if (!$s->search($request)) {
+		$s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
+		//exit(1);
+	} else {
+		$ds = $s->get_data_store();
+		if (sizeof($ds) < 1) {
+			$s->log('Search return no result!', 'warn');
+		} else {
+			$show = $ds[0];
+			$s->get_sub($show, $request);
+		}
+	}
+
+} else {
+	$s->log('Empty request');
 }
-$ds = $s->get_data_store();
-$show = $ds[0];
-$s->get_sub($show, $matches_season[1], $matches_number[1]);
-//$s->search_seasons();
 print $s->to_html();
 exit(0);
 

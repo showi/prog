@@ -1,6 +1,4 @@
 <?php
-include_once('wssubSite.php');
-
 /**
  * @author sho
  *
@@ -8,38 +6,30 @@ include_once('wssubSite.php');
 
 class wssubSite_tvsubtitles extends wssubSite {
 
-	/**
-	 * @return unknown_type
-	 */
 	public function __construct() {
 		parent::__construct();
 		$this->set_prefix_url("http://www.tvsubtitles.net/");
 		$this->set_search_url("http://www.tvsubtitles.net/search.php?q=%search%");
 		$this->set_search_id_url("http://www.tvsubtitles.net/tvshow-%id%.html");
 		$this->set_download_id_url("http://www.tvsubtitles.net/download-%id%.html");
-
-		//$this->data_store = array();
+		$this->set_name("tvsubtitles.net");
+		$this->set_url("http://www.tvsubtitles.net/");
 	}
 
-	/**
-	 *
-	 */
-	/**
-	 *
-	 */
 	public function node_get_search_result($doc) {
 		if (!$doc) {
-			exit("no doc!");
+			$this->log("node_get_search_result: no doc");
 			return null;
 		}
 		$content = $doc->getElementById("content");
 		if (!$content) {
-			exit ("no 'content' id");
+			$this->log("node_get_search_result: no content id");
 		}
 		$list = $doc->getElementsByTagName("div");
 		for($i = 0; $i < $list->length; $i++) {
 			$item = $list->item($i);
 			if (is_null($item)) {
+				$this->log("node_get_search_result: no item");
 				continue;
 			}
 			if (!$item->hasAttributes()) {
@@ -56,20 +46,15 @@ class wssubSite_tvsubtitles extends wssubSite {
 		}
 		return null;
 	}
-	/**
-	 *
-	 */
-	/**
-	 *
-	 */
+
 	public function node_get_search_id_result($doc) { /// PAS CODERRRRRRRRRRR
 		if (!$doc) {
-			exit("no doc!");
+			$this->log("node_get_search_result: no item");
 			return null;
 		}
 		$content = $doc->getElementById("content");
 		if (!$content) {
-			exit ("no 'content' id");
+			$this->log("node_get_search_id_result: no content", 'error');
 		}
 		$list = $content->getElementsByTagName("div");
 		for($i = 0; $i < $list->length; $i++) {
@@ -93,22 +78,7 @@ class wssubSite_tvsubtitles extends wssubSite {
 	}
 
 
-	/**
-	 *
-	 */
-	public function load($url) {
-		if (!$url) {
-			exit ("No url!");
-			return null;
-		}
-		$doc = new DOMDocument();
-		$doc->validateOnParse = true;
-		if (!@$doc->loadHTMLFile($url)) {
-			print("Cannot load file $url");
-			return null;
-		}
-		return $doc;
-	}
+
 	/**
 	 *
 	 */
@@ -179,8 +149,13 @@ class wssubSite_tvsubtitles extends wssubSite {
 
 
 	public function get_sub_parse_doc($doc) {
+		if (!$doc) {
+			$this->log("get_sub_parse_doc() No doc", 'error');
+			return 0;
+		}
 		$tab = $doc->getElementById("table5");
 		if (!$tab) {
+			$this->log("get_sub_parse_doc() No tab element", 'error');
 			return 0;
 		}
 		$tdArray = array(
@@ -193,7 +168,6 @@ class wssubSite_tvsubtitles extends wssubSite {
 		$list = array();
 		foreach($tab->getElementsByTagName("tr") as $tr) {
 			$ep = new wssubEpisode();
-			//print $tr->textContent . "<br>";
 			$count = 0;
 			foreach($tr->getElementsByTagName("td") as $td) {
 				$count++;
@@ -212,12 +186,10 @@ class wssubSite_tvsubtitles extends wssubSite {
 				if ($tdArray[$count] == 'subtitles') {
 					foreach($td->getElementsByTagName('a') as $a) {
 						$sub = new wssubSubtitle();
-						//print "href:"  . $a->getAttribute('href') . "<br>";
 						$sub->set_id($this->extract_subtitle_id($a->getAttribute('href')));
-						//print "ID: " . $sub->get_id() . "<br>";
 						$img_pool = $a->getElementsByTagName('img');					
 						if (!$img_pool) {
-							exit("No image for subtitle<br>");
+							exit("No tag img for subtitle<br>");
 						}
 						$img = $img_pool->item(0);
 						if (!$img) {
@@ -237,44 +209,69 @@ class wssubSite_tvsubtitles extends wssubSite {
 	/**
 	 *
 	 */
-	public function get_sub($show, $num_season, $num_episode) {
-		$id = $show->get_id();
-		$url = "http://www.tvsubtitles.net/tvshow-$id-$num_season.html";
-		//$url = "data/www.tvsubtitles.net/tvshow-13-1.html";
-		//print "url: $url<br>";
-		$doc = $this->load($url);
-		if (is_null($doc) || !$doc) {
+	public function get_sub($show, $request) {
+		if (!$show || !($show instanceof wssubTvShow)) {
+			$this->log("get_sub() invalid show", 'error');
 			return 0;
 		}
-		//print $doc->saveHTML();
+		if (!$request || !($request instanceof wssubRequest)) {
+			$this->log("get_sub() invalid request", 'error');
+			return 0;
+		}		
+		$id = $show->get_id();
+		if (is_null($id)) {
+			$this->log("get_sub() no id", 'error');
+			return 0;
+		}		
+		$num_season = $request->get('season');
+		if (is_null($num_season)) {
+			$this->log("get_sub() no num_season", 'error');
+			return 0;
+		}
+		$url = "http://www.tvsubtitles.net/tvshow-$id-$num_season.html";
+		$doc = $this->load($url);
+		if (!$doc) {
+			$this->log('get_sub() no doc', 'error');
+			return 0;
+		}
 		$season = new wssubSeason();
 		$season->set_num($num_season);
 		$list = $this->get_sub_parse_doc($doc);
+		if (!$list) {
+			$this->log('get_sub() Cannot parse doc', 'error');
+			return 0;
+		}
 		foreach($list as $ep) {
 			$season->add_episode($ep);
-			//print $ep->to_string();
 		}
 		$show->add_season($season);
 		return 1;
 	}
 
-	/**
+	/**	
 	 *
 	 */
-	public function search($name) {
-		if (!$name) {
-			exit("no name!");
+	public function search($request) {
+		if (!$request) {
+			$this->log("search() No request!", 'error');
 			return 0;
 		}
-		$doc = $this->load_search($name);
+		if (!$request->get('search')) {
+			$this->log("search() No search!", 'error');
+			return 0;
+		}
+		$doc = $this->load_search($request->get('search'));
 		if (is_null($doc)) {
+			$this->log("search() No doc", 'error');
 			return 0;
 		}
 		$node = $this->node_get_search_result($doc);
 		if (is_null($node)) {
+			$this->log("search() no node!", 'error');
 			return 0;
 		}
 		if (!$this->build_data_store($node)) {
+			$this->log("search() cannot build data store", 'error');
 			return 0;
 		}
 		return 1;
@@ -303,17 +300,13 @@ class wssubSite_tvsubtitles extends wssubSite {
 			if (!$url) {
 				continue;
 			}
-			$url = "data/www.tvsubtitles.net/tvshow-13.html";
-			//print "Load id: $id ($url)<br>";
+			$url = "data/www.tvsubtitles.net/tvshow-13.html"; // TODO hardcoded
 			$doc = $this->load($url);
-			if (!$doc) {
-				print "Cannot get url: $url<br>";
-			}
 			if (is_null($doc)) {
+				$this->log('search_seasons() no doc', 'error');
 				return 0;
 			}
 			$node = $this->node_get_search_id_result($doc);
-			//print_r($doc);
 		}
 	}
 
@@ -324,10 +317,16 @@ class wssubSite_tvsubtitles extends wssubSite {
 		if (!$txt) {
 			return null;
 		}
+		//print "extract sub id: " . $txt . "<br>";
 		$matches = null;
-		if (!preg_match("/^.*subtitle-(\d+)\.html$/", $txt, $matches)) {
-			return null;
+		preg_match("/^.*subtitle-(\d+)\.html$/", $txt, $matches);
+		if (!$matches[1]) {
+			if (!preg_match("/^.*subtitle-(\d+)-(\d+)-(\w+)\.html$/", $txt, $matches)) {
+				$this->log("extract_subtitle_id() invalid sub id $txt, cannot extract (/^.*episode-(\d+)-(\w+)\.html format???)", 'error');
+				return null;
+			}
 		}
+		
 		return $matches[1];
 	}
 	/**
@@ -335,10 +334,12 @@ class wssubSite_tvsubtitles extends wssubSite {
 	 */
 	public function extract_id($txt, &$matches = null) {
 		if (!$txt) {
+			$this->log("extract_id() no txt", 'error');
 			return null;
 		}
 		$matches = null;
 		if (!preg_match("/^.*tvshow-(\d+)\.html$/", $txt, $matches)) {
+			$this->log("extract_id() no match for $txt", 'error');
 			return null;
 		}
 		return $matches[1];
@@ -346,10 +347,12 @@ class wssubSite_tvsubtitles extends wssubSite {
 	
 	public function extract_episode_number ($txt, &$matches = null) {
 		if (!$txt) {
+			$this->log("extract_episode_number() no txt", 'error');
 			return null;
-		}
+		} 
 		$matches = null;
 		if (!preg_match("/^\s*(\d+)\s*x(\d+)\s*$/", $txt, $matches)) {
+			$this->log("extract_episode_number() no match for $txt", 'error');
 			return null;
 		}
 		return $matches[2];
