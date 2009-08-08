@@ -1,4 +1,5 @@
 <?php
+
 class wssubRequest extends wssubMother {
     private $properties;
     private $allowed;
@@ -72,9 +73,13 @@ class wssubRequest extends wssubMother {
         }
         return true;
     }
+
     public function get($name) {
         if (!$this->is_allowed($name)) {
             $this->log('get: Invalid property $name', 'error');
+            return null;
+        }
+        if (!isset($this->properties[$name])) {
             return null;
         }
         return $this->properties[$name];
@@ -83,7 +88,7 @@ class wssubRequest extends wssubMother {
     public function set_http_request($http_request) {
         if (!$http_request) {
             $this->log('set_http_request() no request', 'error');
-            return null;
+            return 0;
         }
         $expand = array(
 			's' => 'search', 
@@ -109,5 +114,21 @@ class wssubRequest extends wssubMother {
                 unset($http_request[$k]);
             }
         }
+        return 1;
+    }
+    
+    public function is_lang_ok($lang) {
+        if (!$lang) {
+            return false;
+        }
+        if (!isset($this->properties['lang'])) {
+            return true;
+        }
+        foreach($this->properties['lang'] as $l) {
+            if ($l === $lang) {
+                return true;    
+            }
+        }
+        return false;
     }
 }

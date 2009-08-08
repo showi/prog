@@ -100,14 +100,15 @@ abstract class wssubSite extends wssubMother {
 
     public function add_tvshow($show) {
         if (!$show) {
-            exit("add_tvshow: no show");
+            $this->log("add_tvshow() no show");
             return 0;
         }
         if (!($show instanceof wssubTvShow)) {
-            exit("add_tvshow: show isn't an instance of wssubTvShow");
+            $this->log("add_tvshow() show isn't an instance of wssubTvShow");
             return 0;
         }
-        array_push($this->get_data_store(), $show);
+        array_push($this->data_store, $show);
+            $this->log("add_tvshow() data_store length:" + sizeof($this->get_data_store()));
         return 1;
     }
 
@@ -161,10 +162,17 @@ abstract class wssubSite extends wssubMother {
             $this->log("load() no url", 'error');
             return null;
         }
-        $this->log("load() url: $url");
+        $cache = new wssubCache();
+        if ($cache->add($url)) {
+            $this->log("load() url added to cache: $url");
+        }
+        if ($nurl = $cache->get_cache_url($url)) {
+            $url = $nurl;
+        }
+        $this->log("load() LOADING url: $url");
         $doc = new DOMDocument();
         $doc->validateOnParse = true;
-        if (!$doc->loadHTMLFile($url)) {
+        if (!@$doc->loadHTMLFile($url)) {
             $this->log("load() Cannot load file $url", 'error');
             return null;
         }
@@ -172,6 +180,4 @@ abstract class wssubSite extends wssubMother {
     }
     abstract public function search($request);
     abstract public function search_seasons();
-    abstract public function node_get_search_result($doc);
-
 }

@@ -9,7 +9,7 @@ class wssubLogMessage {
         $this->set_class($class);
     }
     public function set_msg($value) {
-        $this->msg = $value;
+        $this->msg = htmlspecialchars($value);
     }
     public function get_msg() {
         return $this->msg;

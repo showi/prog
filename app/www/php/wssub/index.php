@@ -30,31 +30,35 @@ function dom_dump($obj) {
     }
     return htmlspecialchars($retval);
 }
-$matches = null;
-$matches_season = null;
-$matches_number = null;
 
-$request = new wssubRequest();
-$request->set_http_request($_REQUEST);
-
+/********
+ * MAIN *
+ ********/
 $s = new wssubSite_tvsubtitles();
-if ($_REQUEST['s'] || $_REQUEST['search']) {
-    $str = "";
-    if (!$s->search($request)) {
-        $s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
-        //exit(1);
-    } else {
-        $ds = $s->get_data_store();
-        if (sizeof($ds) < 1) {
-            $s->log('Search return no result!', 'warn');
-        } else {
-            $show = $ds[0];
-            $s->get_sub($show, $request);
-        }
-    }
-
+$request = new wssubRequest();
+$s->set_request($request);
+if (!$request->set_http_request($_REQUEST)) {
+    $request->log("format: s=name&se=1");
+    print $s->to_html();
+    exit(0);
+}
+if (!isset($_REQUEST['s']) || isset($_REQUEST['search'])) {
+    $request->log("format: s=name&se=1");
+    print $s->to_html();
+    exit(0);
+}
+$str = "";
+if (!$s->search($request)) {
+    $s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
+    //exit(1);
 } else {
-    $s->log('Empty request');
+    $ds = $s->get_data_store();
+    if (sizeof($ds) < 1) {
+        $s->log('Search return no result!', 'warn');
+    } else {
+        $show = $ds[0];
+        $s->get_sub($show, $request);
+    }
 }
 print $s->to_html();
 exit(0);

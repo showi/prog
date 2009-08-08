@@ -37,6 +37,9 @@ class wssubSubtitle extends wssubMother {
             $this->log("to_html() no id", 'error');
             return null;
         }
+        if (!$parent->get_request()->is_lang_ok($this->get_lang())) {
+            return null;
+        }
         $w = new XMLWriter();
         $w->openMemory();
         $w->startElement('div');
