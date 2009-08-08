@@ -39,6 +39,7 @@ class wssubRequest extends wssubMother {
     public function set_search($name, $value) {
         if (!preg_match("/^([\w\d_\(\) -]+)$/", $value, $matches)) {
             $this->log("set_search() Invalid $name: $value", 'error');
+            return;
         }
         $this->properties[$name] = $value;
         $this->log("set_search() setting $name: " . $this->get($name), "info");
