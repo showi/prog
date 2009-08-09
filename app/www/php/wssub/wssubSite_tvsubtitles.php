@@ -6,8 +6,8 @@
 
 class wssubSite_tvsubtitles extends wssubSite {
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->set_prefix_url("http://www.tvsubtitles.net/");
         $this->set_search_url("http://www.tvsubtitles.net/search.php?q=%search%");
         $this->set_search_id_url("http://www.tvsubtitles.net/tvshow-%id%.html");
@@ -53,38 +53,6 @@ class wssubSite_tvsubtitles extends wssubSite {
         return null;
     }
 
-    public function node_get_search_id_result($doc) { /// PAS CODERRRRRRRRRRR
-        if (!$doc) {
-            $this->log("node_get_search_result: no item");
-            return null;
-        }
-        $content = $doc->getElementById("content");
-        if (!$content) {
-            $this->log("node_get_search_id_result: no content", 'error');
-        }
-        $list = $content->getElementsByTagName("div");
-        for($i = 0; $i < $list->length; $i++) {
-            $item = $list->item($i);
-            if (is_null($item)) {
-                continue;
-            }
-            if (!$item->hasAttributes()) {
-                continue;
-            }
-            foreach ($item->attributes as $attrName => $attrNode) {
-                if ($attrName != "class") {
-                    continue;
-                }
-                if ($attrNode->textContent == 'left_articles') {
-                    return $item;
-                }
-            }
-        }
-        return null;
-    }
-
-
-
     /**
      *
      */
@@ -106,7 +74,7 @@ class wssubSite_tvsubtitles extends wssubSite {
                 continue;
             }
             $this->log("build_data_store() li: " . $tagLi->textContent, 'parse');
-            $show = new wssubTvShow();
+            $show = new wssubTvShow_tvsubtitles($this);
             $a = $tagLi->getElementsByTagName("a");
             if (!is_null($a->item(0))) {
                 if ($a->item(0)->hasAttributes()) {
@@ -249,6 +217,50 @@ class wssubSite_tvsubtitles extends wssubSite {
         return $this->load($url);
     }
     
+    public function search_season($request) { /// WARNNNNNN PAS CODE ////
+        $this->log("search_season() not codes", 'error');
+    
+        if (!is_array(self::$data_store)) {
+            $this->log("search_season() No data", 'error');
+            return 0;
+        } 
+        foreach(self::$data_store as $s) {
+            $this->log("search_season() Found season " . $s->get_name(), 'info');
+        }
+    }
+    
+    public function search_show($p_request) {
+        $request = $p_request;
+        if (is_null($request) || !($request instanceof wssubRequest)) {
+            $request = $this->get_request();
+        }
+        if (is_null($this->get_request())) {
+            $this->log("search_show() request not set (no search() before!!!)", 'error');
+            return 0;
+        }
+        if (!is_array(self::$data_store)) {
+            $this->log("search_show() data_store's not an array", 'error');
+            return 0;
+        } 
+        if (sizeof(self::$data_store) < 1) {
+            $this->log("search_show() No data in data_store", 'error');
+            return 0;
+        } 
+        $sel_show = null;
+        //usort(self::$data_store, 'wssub_cmp_name');
+        foreach(self::$data_store as $s) {
+            if ($request->get('search') == $s->get_name()) {
+                 $sel_show = $s;   
+                 break;
+            }
+        }
+        if (is_null($sel_show)) {
+            $sel_show = self::$data_store[0];
+        }
+        $this->log("search_show() Selecting show " . $s->get_name(), 'info');
+        $sel_show->load();
+    }
+    
     public function search($request) {
         if (!$request) {
             $this->log("search() No request!", 'error');
@@ -258,7 +270,7 @@ class wssubSite_tvsubtitles extends wssubSite {
             $this->log("search() No search!", 'error');
             return 0;
         }
-        $doc = $this->load_page_search($request->get('search'));
+        $doc = $this->load_page_search(htmlentities($request->get('search')));
         if (is_null($doc)) {
             $this->log("search() No doc", 'error');
             return 0;
@@ -273,39 +285,6 @@ class wssubSite_tvsubtitles extends wssubSite {
             return 0;
         }
         return 1;
-    }
-
-    /**
-     *
-     */
-    public function search_seasons() {
-        $ds = $this->get_data_store();
-        if (!$ds) {
-            return 0;
-        }
-        if (sizeof($ds) < 1) {
-            return 0;
-        }
-        foreach($ds as $s) {
-            $id = $s->get_id();
-            if (is_null($id)) {
-                continue;
-            }
-            $url = $this->get_search_id_url($id);
-            if (!$url) {
-                continue;
-            }
-            if (!$url) {
-                continue;
-            }
-            $url = "data/www.tvsubtitles.net/tvshow-13.html"; // TODO hardcoded
-            $doc = $this->load($url);
-            if (is_null($doc)) {
-                $this->log('search_seasons() no doc', 'error');
-                return 0;
-            }
-            $node = $this->node_get_search_id_result($doc);
-        }
     }
 
     /**

@@ -11,11 +11,10 @@ abstract class wssubSite extends wssubMother {
     protected $name = null;
     protected $url = null;
     protected $request = null;
-    protected $data_store = null;
-    protected $log_array = null;
-
-    public function __construct() {
-        parent::__construct();
+    protected static $data_store = null;
+  
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->prefix_url = null;
         $this->search_url = null;
         $this->search_id_url = null;
@@ -23,28 +22,34 @@ abstract class wssubSite extends wssubMother {
         $this->name = null;
         $this->url = null;
         $this->request = null;
-        $this->data_store = array();
+        self::$data_store = array();
         $this->log_array = array();
-
     }
+      
     public function set_request($val) {
         $this->request = $val;
     }
+    
     public function get_request (){
         return $this->request;
     }
+    
     public function set_name($val) {
         $this->name = $val;
     }
+    
     public function get_name (){
         return $this->name;
     }
+    
     public function set_url($val) {
         $this->url = $val;
     }
+    
     public function get_url (){
         return $this->url;
     }
+    
     public function set_prefix_url($val) {
         $this->prefix_url = $val;
     }
@@ -64,7 +69,6 @@ abstract class wssubSite extends wssubMother {
     public function set_search_id_url($val) {
         $this->search_id_url = $val;
     }
-
 
     public function set_search_url($val) {
         $this->search_url = $val;
@@ -95,7 +99,7 @@ abstract class wssubSite extends wssubMother {
     }
 
     public function get_data_store() {
-        return $this->data_store;
+        return self::$data_store;
     }
 
     public function add_tvshow($show) {
@@ -107,7 +111,7 @@ abstract class wssubSite extends wssubMother {
             $this->log("add_tvshow() show isn't an instance of wssubTvShow");
             return 0;
         }
-        array_push($this->data_store, $show);
+        array_push(self::$data_store, $show);
             $this->log("add_tvshow() data_store length:" + sizeof($this->get_data_store()));
         return 1;
     }
@@ -124,6 +128,7 @@ abstract class wssubSite extends wssubMother {
         $w->startElement('div');
         $w->writeAttribute('class', 'show_container');
         $str = "";
+        //usort(self::$data_store, 'wssub_cmp_name');
         foreach($this->get_data_store() as $show) {
             if (!$show) {
                 $this->log("to_html: no show", 'warn');
@@ -153,16 +158,12 @@ abstract class wssubSite extends wssubMother {
         return $w->flush();
     }
 
-
-    /**
-     *
-     */
     public function load($url) {
         if (!$url) {
             $this->log("load() no url", 'error');
             return null;
         }
-        $cache = new wssubCache();
+        $cache = new wssubCache(null);
         if ($cache->add($url)) {
             $this->log("load() url added to cache: $url");
         }
@@ -178,6 +179,11 @@ abstract class wssubSite extends wssubMother {
         }
         return $doc;
     }
+    
+    public function get_url_season_id($show_id, $season_id) {
+    
+    } 
     abstract public function search($request);
-    abstract public function search_seasons();
+    abstract public function search_season($request);
+    abstract public function search_show($request);   
 }

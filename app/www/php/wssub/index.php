@@ -31,14 +31,65 @@ function dom_dump($obj) {
     return htmlspecialchars($retval);
 }
 
+function wssub_cmp_name($p_a, $p_b)
+{
+    $a = $p_a->get_name();
+    $b = $p_b->get_name();
+    $cmp = strcmp($a, $b);
+    if ($cmp == 0) {
+        return 0;
+    }
+    return ($cmp < 0) ? -1 : 1;
+}
+
+function wssub_cmp_num($p_a, $p_b)
+{
+    $a = $p_a->get_num();
+    $b = $p_b->get_num();
+    if ($a == $b) {
+        return 0;
+    }
+    return ($a < $b) ? -1 : 1;
+}
+
+function getElementsByClassName($doc, $elm_name, $class_name, $first_only = false) {
+    if (!$doc) {
+        print "getElementsByClassName: no document!";
+        exit(1);
+    } else if (!$elm_name) {
+        print "getElementsByClassName: no element name!";
+        exit(1);
+    } else if (!$class_name) {
+        print "getElementsByClassName: no class name!";
+        exit(1);
+    }
+    $a_elm = $doc->getElementsByTagName($elm_name);
+    if ($a_elm->length == 0) {
+        //print "getElementsByClassName: no element named $elm_name in doc";
+        return $a_elm;
+    }
+    $ndoc = new DOMDocument();
+    $ndoc->loadXML('<div></div>');
+    for($i = 0; $i < $a_elm->length; $i++) {
+        $item = $a_elm->item($i);
+        if ($item->hasAttribute('class') && ($item->getAttribute('class') == $class_name)) {
+            $node = $ndoc->importNode($item, true);
+            $ndoc->documentElement->appendChild($node);
+            if ($first_only) {
+                return $ndoc->getElementsByTagName($elm_name);
+            }
+        }
+    }
+    return $ndoc->getElementsByTagName($elm_name);
+}
 /********
  * MAIN *
  ********/
-$s = new wssubSite_tvsubtitles();
-$request = new wssubRequest();
+$s = new wssubSite_tvsubtitles(null);
+$request = new wssubRequest(null);
 $s->set_request($request);
 if (!$request->set_http_request($_REQUEST)) {
-    $request->log("format: s=name&se=1");
+    $request->log("format: s=name&se=1&l=en|br");
     print $s->to_html();
     exit(0);
 }
@@ -50,17 +101,17 @@ if (!isset($_REQUEST['s']) || isset($_REQUEST['search'])) {
 $str = "";
 if (!$s->search($request)) {
     $s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
-    //exit(1);
 } else {
-    $ds = $s->get_data_store();
-    if (sizeof($ds) < 1) {
-        $s->log('Search return no result!', 'warn');
-    } else {
-        $show = $ds[0];
-        $s->get_sub($show, $request);
+    $s->search_show($request);
+    //    $ds = $s->get_data_store();
+    //    if (sizeof($ds) < 1) {
+    //        $s->log('Search return no result!', 'warn');
+    //    } else {
+    //        $show = $ds[0];
+    //        $s->get_sub($show, $request);
+    //    }
     }
-}
-print $s->to_html();
-exit(0);
+    print $s->to_html();
+    exit(0);
 
-//print_r($tvshow_list);
+    //print_r($tvshow_list);

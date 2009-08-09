@@ -1,26 +1,17 @@
 <?php
-include_once("wssubMother.php");
 /**
  * @author sho
  *
  */
-function wssub_cmp_season($p_a, $p_b)
-{
-    $a = $p_a->get_num();
-    $b = $p_b->get_num();
-    if ($a == $b) {
-        return 0;
-    }
-    return ($a < $b) ? -1 : 1;
-}
+
 
 class wssubSeason extends wssubMother {
     public $num;
     public $episodes;
     public $max_episode;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->num = null;
         $this->episodes = array();
     }
@@ -59,7 +50,7 @@ class wssubSeason extends wssubMother {
         $w->startElement('div');
         $w->writeAttribute('class', 'episode_container');
         $str = "";
-        usort($this->episodes, 'wssub_cmp_season');
+        usort($this->episodes, 'wssub_cmp_num');
         foreach($this->episodes as $ep) {
             if (!$ep->get_num()) {
                 $this->log("Bad ep with no number: " . $ep->to_string(), 'warn');

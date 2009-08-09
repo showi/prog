@@ -5,7 +5,7 @@ class wssubCacheURL {
     private $url;
     private $update_on;
 
-    public function __construct($url) {
+    public function __construct( $url) {
         $this->hash      = null;
         $this->url       = null;
         $this->update_on = null;
@@ -49,8 +49,8 @@ class wssubCache extends wssubMother{
     protected static $path = null;
     protected static $cache = null;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         if (!isset(self::$cache)) {
             self::$cache = array();
         }
@@ -75,7 +75,7 @@ class wssubCache extends wssubMother{
             $this->log("exists() File not in cache: $file", 'info');
             return false;
         }
-        $this->log("exists() File in cache: $file", 'info');
+        //$this->log("exists() File in cache: $file", 'info');
         return true;
     }
 
@@ -88,8 +88,12 @@ class wssubCache extends wssubMother{
 //            $this->log("is_cacheable: url with query paramater " . $url->get_url(), 'warn');
 //            return false;
 //        }
+
+        
+        $this->log("is_cacheable() !!!!!!!!!!!!!!!!!!!!!!!!!!! ALWAYS TRUE", 'warn');
+        return true;
         if(!preg_match('/^http:\/\/www\.tvsubtitles\.net\/[\d\w\.-]+$/', $url->get_url())) {
-            $this->log("is_cacheable: url not from tvsubtitles " . $url->get_url(), 'warn');
+            $this->log("is_cacheable() invalid url " . $url->get_url(), 'warn');
             return false;
         }
         return true;
@@ -134,7 +138,7 @@ class wssubCache extends wssubMother{
             $url = new wssubCacheUrl($url);
         }
         if (!$this->exists($url)) {
-            $this->log("get_cache_url() url not in cache" . $url->get_url() . " already cached", 'error');
+            $this->log("get_cache_url() url not in cache " . $url->get_url(), 'error');
             return null;
         }
         return $this->cache_path_from_url($url);
@@ -155,12 +159,12 @@ class wssubCache extends wssubMother{
         $file = $this->cache_path_from_url($url);
         if (!$file) {
             $this->log("add_cache() no file cache", 'error');
-            return false;
+            return null;
         }
         $fp = fopen($file, 'rb');
         if (!$fp) {
-            $this->log("get() Cannot open file  $file", 'error');
-            return false;
+            $this->log("get() Cannot open file $file", 'error');
+            return null;
         }
         $buffer = null;
         while (!feof($fp)) {

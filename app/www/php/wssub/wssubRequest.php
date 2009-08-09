@@ -4,8 +4,8 @@ class wssubRequest extends wssubMother {
     private $properties;
     private $allowed;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->allowed = array('search', 'lang', 'episode', 'season');
     }
 
@@ -21,34 +21,37 @@ class wssubRequest extends wssubMother {
     public function set_episode($name, $value) {
         if (!preg_match("/^(\d{1,10})$/", $value, $matches)) {
             $this->log("set_episode() Invalid $name: $value", 'error');
-            return;
+            return false;
         }
-        $this->properties[$name] = $value;
+        $this->properties[$name] = 0 + $value;
         $this->log("set_episode() setting $name: " . $this->get($name), "info");
+        return true;
     }
 
     public function set_season($name, $value) {
         if (!preg_match("/^(\d{1,10})$/", $value, $matches)) {
             $this->log("set_season() Invalid $name: $value", 'error');
-            return;
+            return false;
         }
-        $this->properties[$name] = $value;
+        $this->properties[$name] = 0 + $value;
         $this->log("set_season() setting $name: " . $this->get($name), "info");
+        return true;
     }
 
     public function set_search($name, $value) {
         if (!preg_match("/^([\w\d_\(\) -]+)$/", $value, $matches)) {
             $this->log("set_search() Invalid $name: $value", 'error');
-            return;
+            return false;
         }
         $this->properties[$name] = $value;
         $this->log("set_search() setting $name: " . $this->get($name), "info");
+        return true;
     }
 
     public function set_lang($name, $value) {
         if (!preg_match("/^(([\w]{2})(,?[\w]{2}){0,4})$/", $value , $matches)) {
             $this->log("set_lang() Invalid $name: $value", 'error');
-            return;
+            return false;
         }
         $languages = split(',', $matches[1]);
         foreach($languages as $i => $lang) {
@@ -58,6 +61,7 @@ class wssubRequest extends wssubMother {
             $this->log("set_lang() [$i] setting $name: " . $languages[$i], "info");
         }
         $this->properties[$name] = $languages;
+        return true;
     }
 
     public function set($name, $value) {
@@ -77,7 +81,7 @@ class wssubRequest extends wssubMother {
 
     public function get($name) {
         if (!$this->is_allowed($name)) {
-            $this->log('get: Invalid property $name', 'error');
+            $this->log("get: Invalid property $name", 'error');
             return null;
         }
         if (!isset($this->properties[$name])) {
@@ -131,5 +135,9 @@ class wssubRequest extends wssubMother {
             }
         }
         return false;
+    }
+    
+    public function get_season_id($show) {
+    
     }
 }

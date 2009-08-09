@@ -1,13 +1,14 @@
 <?php
-class wssubTvShow extends wssubMother{
-    private $id;
-    private $name;
-    private $href;
-    private $languages;
-    private $seasons;
+abstract class wssubTvShow extends wssubMother{
+    protected $id;
+    protected $name;
+    protected $href;
+    protected $languages;
+    protected $seasons;
+    protected $img;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->id = null;
         $this->name = null;
         $this->href = null;
@@ -19,7 +20,13 @@ class wssubTvShow extends wssubMother{
         return $this->name;
     }
     public function set_name($value) {
-        $this->name = $value;
+        $this->name = strtolower($value);
+    }
+    public function get_img() {
+        return $this->img;
+    }
+    public function set_img($value) {
+        $this->img = $value;
     }
     public function get_seasons() {
         return $this->seasons;
@@ -47,11 +54,13 @@ class wssubTvShow extends wssubMother{
         return $this->languages;
     }
     public function set_id($value) {
-        $this->id = $value;
+        $this->id = 0 + $value;
     }
     public function get_id() {
         return $this->id;
     }
+
+    /* ??? */
     public function add_language($lang) {
         array_push($this->languages, $lang);
     }
@@ -66,9 +75,17 @@ class wssubTvShow extends wssubMother{
         $w->writeAttribute('href', $parent->get_prefix_url() . $this->get_href());
         $w->text($this->get_name());
         $w->endElement();
+        $img = null;
+        if ($img = $this->get_img()) {
+            $w->startElement('img');
+            $w->writeAttribute('src', $parent->get_prefix_url() . $img);
+            $w->writeAttribute('alt', $this->get_name());
+            $w->endElement();
+        }
         $str = "";
         $w->startElement('div');
         $w->writeAttribute('class', 'season_container');
+        usort($this->seasons, 'wssub_cmp_num');
         foreach($this->get_seasons() as $season) {
             if (!$season) {
                 $this->log('to_html: "empty season', 'warn');
@@ -80,4 +97,5 @@ class wssubTvShow extends wssubMother{
         $w->endElement();
         return $w->flush();
     }
+    abstract public function load();
 }
