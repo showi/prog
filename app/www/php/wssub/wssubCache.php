@@ -56,7 +56,18 @@ class wssubCache extends wssubMother{
         }
         self::$path = "/tmp/wssub";
     }
-
+    public function cache_path_exists(){
+        if (!self::$path) {
+            return false;
+        }
+        if (!file_exists(self::$path)) {
+            return false;
+        }
+        if (!is_writable(self::$path)) {
+            return false;
+        }
+        return true;
+    }
     public function cache_path_from_url($url) {
         if (!$url) {
             $this->log("cache_path_from_url() No url", 'error');
@@ -100,6 +111,10 @@ class wssubCache extends wssubMother{
     }
 
     protected function add_cache($url) {
+        if (!$this->cache_path_exists()) {
+            $this->log("add_cache() Invalid cache directory or not set", 'error');
+            return false;
+        }
         ini_set('user_agent', "PHP\r\nX-MyCustomHeader: Foo");
         //ini_set('referer: http://');
         $file = $this->cache_path_from_url($url);

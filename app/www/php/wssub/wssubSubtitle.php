@@ -4,15 +4,22 @@ class wssubSubtitle extends wssubMother {
     /**
      * @var unknown_type
      */
-    public $lang;
-    public $id;
-
-    public function __construct() {
-        parent::__construct();
+    protected $lang;
+    protected $id;
+    protected $url;
+    
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->lang = null;
         $this->id = null;
+        $this->url = null;
     }
-
+    public function set_url($value) {
+        $this->url = $value;
+    }
+    public function get_url() {
+        return $this->url;
+    }
     public function set_id($value) {
         $this->id = $value;
     }

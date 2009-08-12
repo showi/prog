@@ -85,7 +85,7 @@ class wssubTvShow_tvsubtitles extends wssubTvShow{
             }
             $season = new wssubSeason_tvsubtitles($this);
             $season->set_num($season_num);
-            $season->load_content($subcontent);
+            $season->load_content($doc, $subcontent);
             $this->add_season($season);
         }
 

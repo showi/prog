@@ -12,14 +12,22 @@ class wssubEpisode extends wssubMother{
     private $num;
     private $title;
     private $subtitles;
+    private $url;
     /**
      * @return unknown_type
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct($parent) {
+        parent::__construct($parent);
         $this->num = null;
         $this->title = null;
         $this->subtitles = array();
+        $this->url = null;
+    }
+    public function set_url($value) {
+        $this->url = $value;
+    }
+    public function get_url() {
+        return $this->url;
     }
     public function set_num($value) {
         $this->num = $value;
@@ -63,7 +71,7 @@ class wssubEpisode extends wssubMother{
         $w->endElement();
         $w->startElement('div');
         $w->writeAttribute('class', 'episode_title');
-        $w->text($this->get_title());
+        $w->text($this->get_title() . '(' . $this->get_url() . ')');
         $w->endElement();
         $w->startElement('div');
         $w->writeAttribute('class', 'subtitle_container');

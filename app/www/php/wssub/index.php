@@ -82,6 +82,19 @@ function getElementsByClassName($doc, $elm_name, $class_name, $first_only = fals
     }
     return $ndoc->getElementsByTagName($elm_name);
 }
+
+function get_mini_lang($lang) {
+    if (!$lang) {
+        print "get_mini_lang() no lang";
+        return null;
+    }
+    $lang = trim(strtolower($lang));
+    if (strlen($lang) < 3) {
+        return $lang;
+    }
+    return $lang; // NEED ISO 3166 Code :)
+    return substr($lang, 0, 2);
+}
 /********
  * MAIN *
  ********/
