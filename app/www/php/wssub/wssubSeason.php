@@ -6,9 +6,10 @@
 
 
 class wssubSeason extends wssubMother {
-    public $num;
-    public $episodes;
-    public $max_episode;
+    protected $num;
+    protected $episodes;
+    protected $max_episode;
+    protected $href;
 
     public function __construct($parent) {
         parent::__construct($parent);
@@ -16,6 +17,14 @@ class wssubSeason extends wssubMother {
         $this->episodes = array();
     }
 
+    public function set_href($value) {
+        $this->href = $value;
+    }
+    
+    public function get_href() {
+        return $this->href;
+    }
+    
     public function set_num($value) {
         $this->num = $value;
     }

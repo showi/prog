@@ -12,7 +12,7 @@ class wssubEpisode extends wssubMother{
     private $num;
     private $title;
     private $subtitles;
-    private $url;
+    private $url; // maybe change it to href, we need consistency
     /**
      * @return unknown_type
      */
@@ -63,15 +63,22 @@ class wssubEpisode extends wssubMother{
         $w->writeAttribute('class', 'episode');
         $w->startElement('div');
         $w->writeAttribute('class', 'episode_number');
-        $w->text($this->get_num());
+        $num = $this->get_num();
+        if ($num == -1) {
+            $num = "All";
+        } else if ($num == -2) {
+            $num = 'Nd';
+        }
+        $w->text($num);
         $w->endElement();
         $w->startElement('div');
         $w->writeAttribute('class', 'inline');
         $w->text(" - ");
         $w->endElement();
-        $w->startElement('div');
+        $w->startElement('a');
         $w->writeAttribute('class', 'episode_title');
-        $w->text($this->get_title() . '(' . $this->get_url() . ')');
+        $w->writeAttribute('href', $this->get_url());
+        $w->text($this->get_title());
         $w->endElement();
         $w->startElement('div');
         $w->writeAttribute('class', 'subtitle_container');

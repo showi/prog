@@ -2,6 +2,9 @@
 function __autoload($class_name) {
     require_once $class_name . '.php';
 }
+
+$GWSSUB_LOG = true;
+
 function dom_dump($obj) {
     if ($classname = get_class($obj)) {
         $retval = "Instance of $classname, node list: \n";
@@ -95,15 +98,22 @@ function get_mini_lang($lang) {
     return $lang; // NEED ISO 3166 Code :)
     return substr($lang, 0, 2);
 }
+
+function wssub_log($msg) {
+    global $GWSSUB_LOG;
+    if (!$GWSSUB_LOG) {
+        return;
+    }
+    print "$msg<br>\n";
+}
+
 /********
  * MAIN *
  ********/
-$s = new wssubSite_tvsubtitles(null);
 $request = new wssubRequest(null);
-$s->set_request($request);
 if (!$request->set_http_request($_REQUEST)) {
-    $request->log("format: s=name&se=1&l=en|br");
-    print $s->to_html();
+    wssub_log("format: s=name&se=1&l=en|br");
+    //print $s->to_html();
     exit(0);
 }
 if (!isset($_REQUEST['s']) || isset($_REQUEST['search'])) {
@@ -111,20 +121,31 @@ if (!isset($_REQUEST['s']) || isset($_REQUEST['search'])) {
     print $s->to_html();
     exit(0);
 }
-$str = "";
-if (!$s->search($request)) {
-    $s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
-} else {
-    $s->search_show($request);
-    //    $ds = $s->get_data_store();
-    //    if (sizeof($ds) < 1) {
-    //        $s->log('Search return no result!', 'warn');
-    //    } else {
-    //        $show = $ds[0];
-    //        $s->get_sub($show, $request);
-    //    }
-    }
-    print $s->to_html();
-    exit(0);
 
-    //print_r($tvshow_list);
+$site_pool = array('tvsubtitles', 'seriessub');
+//$site_pool = array('seriessub');
+$out = "";
+foreach ($site_pool as $site) {
+    $class = "wssubSite_$site";
+    wssub_log("Trying to load $site");
+    if (!file_exists("$class.php")) {
+        wssub_log("No class $class");
+        continue;
+    }
+    $s = new $class(null);
+//    if (!$s->is_reachable()) {
+//        wssub_log("Site $site down");
+//        continue;
+//    }
+    $s->set_request($request);
+    if (!$s->search($request)) {
+        $s->log('SEARCH: ' . $request->get('search') . " fail", 'error');
+    } else {
+        $s->search_show($request);
+    }
+    $out .= $s->to_html();
+}
+print $out;
+exit(0);
+
+//print_r($tvshow_list);

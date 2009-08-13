@@ -30,6 +30,9 @@ class wssubSubtitle_tvsubtitles extends wssubSubtitle {
             if ($c->tagName == 'p' && $c->getAttribute('class') == 'description') {
                 $this->log("load() description: " . $c->textContent , 'error');
                 foreach($c->childNodes as $dc) {
+                    if (!$dc || !isset($dc->tagType)) {
+                        continue;
+                    }
                     if ($dc->tagType == 3 || $dc->tagName != "img") {
                         continue;
                     }

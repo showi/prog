@@ -1,7 +1,7 @@
 <?php
 class wssubMother {
     private $parent = null;
-    private $log_on = true;
+    private $log_on = false;
     private static $log_array = null;
     
     public function __construct($parent) {

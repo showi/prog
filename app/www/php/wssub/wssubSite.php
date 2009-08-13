@@ -12,7 +12,7 @@ abstract class wssubSite extends wssubMother {
     protected $url = null;
     protected $request = null;
     protected static $data_store = null;
-  
+
     public function __construct($parent) {
         parent::__construct($parent);
         $this->prefix_url = null;
@@ -25,31 +25,44 @@ abstract class wssubSite extends wssubMother {
         self::$data_store = array();
         $this->log_array = array();
     }
-      
+
+    public function is_reachable() {
+        $doc = $this->load($this->get_prefix_url(), false);
+        if (!$doc) {
+            $this->log("Cannot load document!", 'error');
+            return false;
+        }
+        $body = $doc->getElementsByTagName('body');
+        if ($body->length < 1) {
+            $this->log("No document body", 'error');
+            return false;
+        }
+        return true;
+    }
     public function set_request($val) {
         $this->request = $val;
     }
-    
+
     public function get_request (){
         return $this->request;
     }
-    
+
     public function set_name($val) {
         $this->name = $val;
     }
-    
+
     public function get_name (){
         return $this->name;
     }
-    
+
     public function set_url($val) {
         $this->url = $val;
     }
-    
+
     public function get_url (){
         return $this->url;
     }
-    
+
     public function set_prefix_url($val) {
         $this->prefix_url = $val;
     }
@@ -112,7 +125,7 @@ abstract class wssubSite extends wssubMother {
             return 0;
         }
         array_push(self::$data_store, $show);
-            $this->log("add_tvshow() data_store length:" + sizeof($this->get_data_store()));
+        $this->log("add_tvshow() data_store length:" + sizeof($this->get_data_store()));
         return 1;
     }
 
@@ -158,17 +171,19 @@ abstract class wssubSite extends wssubMother {
         return $w->flush();
     }
 
-    public function load($url) {
+    public function load($url, $cacheable = true) {
         if (!$url) {
             $this->log("load() no url", 'error');
             return null;
         }
-        $cache = new wssubCache(null);
-        if ($cache->add($url)) {
-            $this->log("load() url added to cache: $url");
-        }
-        if ($nurl = $cache->get_cache_url($url)) {
-            $url = $nurl;
+        if ($cacheable) {
+            $cache = new wssubCache(null);
+            if ($cache->add($url)) {
+                $this->log("load() url added to cache: $url");
+            }
+            if ($nurl = $cache->get_cache_url($url)) {
+                $url = $nurl;
+            }
         }
         $this->log("load() LOADING url: $url");
         $doc = new DOMDocument();
@@ -179,11 +194,11 @@ abstract class wssubSite extends wssubMother {
         }
         return $doc;
     }
-    
+
     public function get_url_season_id($show_id, $season_id) {
-    
-    } 
+
+    }
     abstract public function search($request);
     abstract public function search_season($request);
-    abstract public function search_show($request);   
+    abstract public function search_show($request);
 }
